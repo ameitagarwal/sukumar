@@ -1,0 +1,14 @@
+﻿@model Training
+
+@using (Html.BeginForm())
+{
+    @* @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete Customer" }) *@
+
+    <div class="modal-body form-horizontal">
+        Are you want to delete?
+    </div>
+    <div class="col-sm-12 mb-3">
+			<button class="btn" type="submit">Delete</button>
+		</div>
+    @* @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Delete" }) *@
+}  

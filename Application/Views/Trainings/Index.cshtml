@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Training>
+@inject IStringLocalizer<TrainingsController> stringLocalizer
+@inject IConfiguration config;
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+
+<div class="row mb-3">
+	<div class="col-12 mb-3 right-container">
+		<h2>
+            List Of Trainings
+		</h2>
+		<div class="clearfix"></div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+                    <tr>
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            Center
+                        </th>
+                        <th>
+                            Total Seats
+                        </th>
+                        <th>
+                            Available Seats
+                        </th>
+                        <th>
+                            StartDate Time
+                        </th>
+                        <th>
+                            EndDate Time
+                        </th>
+                        <th>
+                               
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            Registrations
+                        </th>
+                    </tr>
+				</thead>
+				<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if(@item.Location != null)
+                                {
+                                    <label asp-for="@item.Location.TitleEn">@item.Location.TitleEn</label>
+                                }
+                            </td>
+                            <td>
+                                @if (@item.Center != null)
+                                {
+                                    <label asp-for="@item.Center.TitleEn">@item.Center.TitleEn</label>
+                                }
+                            </td>
+                            <td>
+                               <label asp-for="@item.TotalSeats">@item.TotalSeats</label>
+                            </td>
+                            <td>
+                                <label asp-for="@item.AvailableSeats">@item.AvailableSeats</label>
+                            </td>
+                            <td>
+                                @{
+                                    var startdate = item.StartDateTime.ToShortDateString();
+                                }
+                                <label asp-for="@startdate">@startdate</label>
+                            </td>
+                            <td>
+                                @{
+                                    var enddate = item.EndDateTime.ToShortDateString();
+                                }
+                                <label asp-for="@enddate">@enddate</label>
+                            </td>
+                            <td>
+                                <a id="EditTrainings" data-toggle="modal" class="btn-dark"
+                                   data-assigned-id="@item.EncryptedId" data-target="#exampleModalLong">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                @if(item.RegistrationNo != null)
+                                {
+                                    <a id="DeleteTrainings" data-toggle="modal" class="btn-danger"
+                                       data-assigned-id="@item.EncryptedId" data-target="#exampleModalLong">
+                                        Delete
+                                    </a>
+                                }
+                            </td>
+                            <td>
+                                <a id="Registration" class="btn-info" asp-controller="Trainings" 
+                                    asp-route-id="@item.EncryptedId" asp-action="Registration">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="partial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.btn-dark').click(function () {
+            var id = $(this).data('assigned-id');
+            var route = '@Url.Action("Edit", "Trainings")?id=' + id;
+            $('#partial').load(route);
+            $('#exampleModalLong').modal('show');
+        });
+        $('.btn-danger').click(function () {
+            var id = $(this).data('assigned-id');
+            var route = '@Url.Action("Delete", "Trainings")?id=' + id;
+            $('#partial').load(route);
+            $('#exampleModalLong').modal('show');
+        });
+
+    });
+</script>

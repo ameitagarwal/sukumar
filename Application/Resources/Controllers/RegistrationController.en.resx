@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abu Dhabi" xml:space="preserve">
+    <value>https://maps.app.goo.gl/Tgw8rmM6WCsdUnee6</value>
+  </data>
+  <data name="Al Ain" xml:space="preserve">
+    <value>https://goo.gl/maps/NhHMJZ2JbRSqYqEw7</value>
+  </data>
+  <data name="Al Dhafra" xml:space="preserve">
+    <value>https://maps.app.goo.gl/MZbm2myYyFGEo4cz9</value>
+  </data>
+  <data name="Duplicate Registration Message" xml:space="preserve">
+    <value>The provided Emirates Id has already been used for the selected Training Registration. To see more details please &lt;a href="{clickhere}"&gt;click here&lt;/a&gt;.</value>
+  </data>
+  <data name="My Registration Page Amount Paid Label" xml:space="preserve">
+    <value>Amount Paid</value>
+  </data>
+  <data name="My Registration Page Download PDF Label" xml:space="preserve">
+    <value>Download PDF</value>
+  </data>
+  <data name="My Registration Page Location Label" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="My Registration Page Map Link Label" xml:space="preserve">
+    <value>Map Link</value>
+  </data>
+  <data name="My Registration Page Registered Trainings Label" xml:space="preserve">
+    <value>Registered Trainings</value>
+  </data>
+  <data name="My Registration Page Registration Date Label" xml:space="preserve">
+    <value>Registration Date</value>
+  </data>
+  <data name="My Registration Page Training Center Label" xml:space="preserve">
+    <value>Training Center</value>
+  </data>
+  <data name="My Registration Page Training End Date Label" xml:space="preserve">
+    <value>Training End Date</value>
+  </data>
+  <data name="My Registration Page Training Start Date Label" xml:space="preserve">
+    <value>Training Start Date</value>
+  </data>
+  <data name="Registration Completion Email Body" xml:space="preserve">
+    <value>&lt;div&gt;Dear Customer,​ ​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Thank you for registering for the training course assigned for Tanker Drivers. Please proceed to make the payment to ensure your seat reservation.​ ​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Below are your registration details.&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;table width="50%"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Registration ID&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{RegNo}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;City&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{City}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Location&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Location}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Google Maps Link&lt;/b&gt;&lt;/td&gt;{Link}&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Start Date&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{StartDate}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;End Date&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{EndDate}&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;To make the payment please &lt;a href="{paymentlink}"&gt;Click here&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;&lt;font size='2' color='red'&gt;&lt;i&gt;Please note that the training will not be reserved until payment is completed. In order to reserve your seat please complete your payment immediately.&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Best Regards,​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;ADDC Team​&lt;br/&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="Registration Completion Email Subject" xml:space="preserve">
+    <value>Tankering Training Course Registration</value>
+  </data>
+  <data name="Registration Completion Page Make Payment button" xml:space="preserve">
+    <value>Make Payment</value>
+  </data>
+  <data name="Registration Completion SMS" xml:space="preserve">
+    <value>Dear Customer, 
+Thank you for registering for the training course assigned for Tanker Drivers. 
+Your Registration No: {RegistrationNo} 
+Location: {Loc} 
+Training Date: {TD}
+Time: 8:30 AM to 2:30 PM 
+Please proceed to make the payment to ensure your seat reservation.</value>
+  </data>
+  <data name="Registration Page Amount Label" xml:space="preserve">
+    <value>Amount to be Paid</value>
+  </data>
+  <data name="Registration Page Available Training Label" xml:space="preserve">
+    <value>Training Dates (From - To)</value>
+  </data>
+  <data name="Registration Page Available Training Note" xml:space="preserve">
+    <value>Note: All trainings will be conducted in English from  8:30 AM to 2:30 PM</value>
+  </data>
+  <data name="Registration Page Available Training Placeholder" xml:space="preserve">
+    <value>--- Select Training ---</value>
+  </data>
+  <data name="Registration Page Centers Label" xml:space="preserve">
+    <value>Training Center</value>
+  </data>
+  <data name="Registration Page Centers Placeholder" xml:space="preserve">
+    <value>--- Select Training Center---</value>
+  </data>
+  <data name="Registration Page Driver Name Label" xml:space="preserve">
+    <value>Driver Name (As per your Emirates ID)</value>
+  </data>
+  <data name="Registration Page Driver Name Placeholder" xml:space="preserve">
+    <value>Please enter your full name as per your Emirates ID</value>
+  </data>
+  <data name="Registration Page Email Label" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Registration Page Email Placeholder" xml:space="preserve">
+    <value>Please enter your email address</value>
+  </data>
+  <data name="Registration Page Emirates ID Label" xml:space="preserve">
+    <value>Emirates ID</value>
+  </data>
+  <data name="Registration Page Emirates ID Placeholder" xml:space="preserve">
+    <value>Please enter your Emirates ID</value>
+  </data>
+  <data name="Registration Page Entity Label" xml:space="preserve">
+    <value>Entity Type</value>
+  </data>
+  <data name="Registration Page Entity Name Label" xml:space="preserve">
+    <value>Entity Name</value>
+  </data>
+  <data name="Registration Page Entity Name Placeholder" xml:space="preserve">
+    <value>Please enter entity name</value>
+  </data>
+  <data name="Registration Page Entity Placeholder" xml:space="preserve">
+    <value>--- Select Entity Type ---</value>
+  </data>
+  <data name="Registration Page Form Description" xml:space="preserve">
+    <value>Please make sure that your information is accurate. Your personal details will be secured and used for the training purposes managed by Abu Dhabi Distribution Company and its Capability Development Center.</value>
+  </data>
+  <data name="Registration Page Form Header" xml:space="preserve">
+    <value>Water Tankering Training Registration</value>
+  </data>
+  <data name="Registration Page Locations Label" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Registration Page Locations Placeholder" xml:space="preserve">
+    <value>--- Select Location ---</value>
+  </data>
+  <data name="Registration Page Maps Link" xml:space="preserve">
+    <value>View location in google maps</value>
+  </data>
+  <data name="Registration Page Mobile Label" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Registration Page Mobile Placeholder" xml:space="preserve">
+    <value>Please enter your mobile number</value>
+  </data>
+  <data name="Registration Page Register Button" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Rigistreation Completed Note" xml:space="preserve">
+    <value>Please note that the training will not be reserved until payment is completed. In order to reserve your seat, please complete your payment immediately.</value>
+  </data>
+  <data name="Thank you Message" xml:space="preserve">
+    <value>&lt;div&gt;Thank you for registering to the training. &lt;/div&gt;&lt;div class="mt-1"&gt;Your registration has been successful and your regstration number is {RegNo}.&lt;/div&gt;&lt;div class="mt-1"&gt;Please click below button to proceed with the payment.&lt;/div&gt;</value>
+  </data>
+  <data name="Thank you Message Header" xml:space="preserve">
+    <value>Registration is Successful - </value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Training Registration</value>
+  </data>
+</root>

@@ -1,0 +1,226 @@
+﻿@model RegistrationViewModel
+@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IConfiguration config;
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+@if (TempData["Duplicate Registration Message"] != null)
+{
+	<div class="row">
+		<div class="col-12">
+			<div class="alert alert-danger" role="alert">
+				@Html.Raw(TempData["Duplicate Registration Message"])
+			</div>
+		</div>
+	</div>
+}
+<div class="row mb-3">
+	<div class="col-12">
+		<h1>@stringLocalizer["Registration Page Form Header"]</h1>
+	</div>
+	<div class="col-12 mt-1">
+		<small>@stringLocalizer["Registration Page Form Description"]</small>
+	</div>
+</div>
+<form asp-action="index" method="post" class="needs-validation" novalidate>
+	<div class="row">
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Entity" class="asterisk mb-1">@stringLocalizer["Registration Page Entity Label"]</label>
+				<select class="form-select" asp-for="Entity" onchange="showEntityName(this)">
+					@* asp-items="@(new SelectList(Model.Entities, "Key", "Title"))" *@
+					<option value="" selected>@stringLocalizer["Registration Page Entity Placeholder"]</option>
+					@foreach (var entity in Model.Entities)
+					{
+						<option value="@entity.Key">
+							@if (CultureInfo.CurrentCulture.Name == "en")
+							{
+								@entity.TitleEn
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ar")
+							{
+								@entity.TitleAr
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ur")
+							{
+								@entity.TitleUr
+							}
+						</option>
+					}
+				</select>
+				<span class="text-danger small" asp-validation-for="Entity"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3 d-none" id="entityNameDiv">
+			<div class="form-group">
+				<label asp-for="EntityName" class="mb-1">@stringLocalizer["Registration Page Entity Name Label"]</label>
+				<input asp-for="EntityName" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Entity Name Placeholder"]" maxlength="150">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="DriverName" class="asterisk mb-1">@stringLocalizer["Registration Page Driver Name Label"]</label>
+				<input asp-for="DriverName" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Driver Name Placeholder"]" maxlength="150">
+				<span class="text-danger small" asp-validation-for="DriverName"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="EmiratesID" class="asterisk mb-1">@stringLocalizer["Registration Page Emirates ID Label"]</label>
+				<input id="txtEmiratesID" asp-for="EmiratesID" type="text" class="form-control" placeholder="784-0000-0000000-0" maxlength="18">
+				<span class="text-danger small" asp-validation-for="EmiratesID"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Mobile" class="asterisk mb-1">@stringLocalizer["Registration Page Mobile Label"]</label>
+				<input id="txtMobileNumber" asp-for="Mobile" type="text" class="form-control" placeholder="971-xxxxxxxxx" maxlength="13">
+				<span class="text-danger small" asp-validation-for="Mobile"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Email" class="mb-1">@stringLocalizer["Registration Page Email Label"]</label>
+				<input asp-for="Email" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Email Placeholder"]" maxlength="150">
+				<span class="text-danger small" asp-validation-for="Email"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Location" class="asterisk mb-1">@stringLocalizer["Registration Page Locations Label"]</label>
+				<select id="ddlLocation" class="form-select" asp-for="Location" onchange="loadCenters(this)">
+					@* asp-items="@(new SelectList(Model.Entities, "Key", "Title"))" *@
+					<option value="" selected>@stringLocalizer["Registration Page Locations Placeholder"]</option>
+					@foreach (var loc in Model.Locations)
+					{
+						<option value="@loc.Id">
+							@if (CultureInfo.CurrentCulture.Name == "en")
+							{
+								@loc.TitleEn
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ar")
+							{
+								@loc.TitleAr
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ur")
+							{
+								@loc.TitleUr
+							}
+						</option>
+					}
+				</select>
+				<span class="text-danger small" asp-validation-for="Location"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Center" class="asterisk mb-1">@stringLocalizer["Registration Page Centers Label"]</label>
+				<select class="form-select" id="ddlCenters" asp-for="Center" onchange="loadTrainings(this)">
+					<option value="" selected>@stringLocalizer["Registration Page Centers Placeholder"]</option>
+					@* @foreach (var center in Model.Centers)
+					{
+						<option value="@center.Id">
+							@if (CultureInfo.CurrentCulture.Name == "en")
+							{
+								@center.TitleEn
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ar")
+							{
+								@center.TitleAr
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ur")
+							{
+								@center.TitleUr
+							}
+						</option>
+					} *@
+				</select>
+				<a id="MapsLink" style="display:none" href="" target="_blank">@stringLocalizer["Registration Page Maps Link"] <i class="bi bi-geo-alt"></i></a>
+				<span class="text-danger small" asp-validation-for="Center"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="TrainingId" class="asterisk mb-1">@stringLocalizer["Registration Page Available Training Label"]</label>
+				<select class="form-select" asp-for="TrainingId" id="ddlTrainings">
+					<option value="" selected>@stringLocalizer["Registration Page Available Training Placeholder"]</option>
+				</select>
+				<span class="text-primary small">@stringLocalizer["Registration Page Available Training Note"]</span><br />
+				<span class="text-danger small" asp-validation-for="TrainingId"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 mb-3">
+			<div class="form-group has-validation">
+				<label class="mb-1">@stringLocalizer["Registration Page Amount Label"]</label>
+				<br />
+				<b>AED @config["Amount"]</b>
+			</div>
+		</div>
+		<div class="col-md-12 mb-3">
+			<small><i class="text-danger">@stringLocalizer["Rigistreation Completed Note"]</i></small>
+		</div>
+		<div class="col-sm-12 col-md-12 mb-3">
+			<button class="btn" type="submit">@stringLocalizer["Registration Page Register Button"]</button>
+		</div>
+	</div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#txtMobileNumber").mask("999-999999999");
+		$("#txtEmiratesID").mask("999-9999-9999999-9");
+		$("#MapsLink").hide();
+	})
+	function showEntityName(obj) {
+		var entityNameDiv = document.getElementById("entityNameDiv");
+		if (obj.value != "Individual" && obj.value != "") {
+			entityNameDiv.classList.remove("d-none");
+		}
+		else {
+			entityNameDiv.classList.add("d-none");
+			$("#EntityName").val("");
+		}
+	}
+	function loadCenters(obj) {
+		var url = "@baseurl";
+		$.post("/en/Registration/GetCentersByLocation", { LocationId: obj.value }, function (data) {
+			$("#ddlCenters").empty();
+			$("#ddlCenters").append("<option>@stringLocalizer["Registration Page Centers Placeholder"]</option>")
+			$("#ddlTrainings").empty();
+			$("#ddlTrainings").append("<option>@stringLocalizer["Registration Page Available Training Placeholder"]</option>")
+			$.each(data, function (index, row) {
+				var text = "@CultureInfo.CurrentCulture.Name" == "en" ? row.titleEn : "@CultureInfo.CurrentCulture.Name" == "ar" ? row.titleAr : row.titleUr;
+				$("#ddlCenters").append("<option value='" + row.id + "'>" + text + "</option>")
+			});
+		});
+	}
+	function loadTrainings(obj) {
+		var url = "@baseurl";
+		$("#MapsLink").hide();
+		$.post("/en/Registration/GetCenterById", { Id: obj.value }, function (data) {
+			if (data != null) {
+				$("#MapsLink").show();
+				$("#MapsLink").attr("href", data.url);
+			}
+		});
+		var LocationId = $("#ddlLocation").val();
+		$.post("/en/Registration/GetTrainingsByLocation", { LocationId: LocationId, CenterId: obj.value }, function (data) {
+			PopulateDropDown("#ddlTrainings", data);
+		});
+		function PopulateDropDown(dropDownId, list) {
+			$(dropDownId).empty();
+			var weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+			$(dropDownId).append("<option>@stringLocalizer["Registration Page Available Training Placeholder"]</option>")
+			$.each(list, function (index, row) {
+				var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+				var startdate = new Date(row.startDateTime).toLocaleDateString("@CultureInfo.CurrentCulture.Name", options);
+				var enddate = new Date(row.endDateTime).toLocaleDateString("@CultureInfo.CurrentCulture.Name", options);
+				var text = "From " + startdate + " To " + enddate;
+				$(dropDownId).append("<option value='" + row.id + "'>" + text + "</option>");
+			});
+		}
+	}
+</script>

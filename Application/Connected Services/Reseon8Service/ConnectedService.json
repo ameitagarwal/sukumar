@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "http://advwtsms01.adweag.local:8080/reson8fe/MessageSenderWebService"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, Reseon8Service"
+    ],
+    "targetFramework": "net8.0",
+    "typeReuseMode": "None"
+  }
+}

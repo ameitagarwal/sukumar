@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Driver Registration Address Required" xml:space="preserve">
+    <value>Please enter the address.</value>
+  </data>
+  <data name="Driver Registration Arabic Name Invalid" xml:space="preserve">
+    <value>Please Enter Valid Arabic Name</value>
+  </data>
+  <data name="Driver Registration Arabic Name Required" xml:space="preserve">
+    <value>Please enter the arabic name.</value>
+  </data>
+  <data name="Driver Registration Confirm Password Invalid" xml:space="preserve">
+    <value>The password confirmation does not match.</value>
+  </data>
+  <data name="Driver Registration Confirm Password Required" xml:space="preserve">
+    <value>Please enter a valid confirm pasword</value>
+  </data>
+  <data name="Driver Registration DOB Required" xml:space="preserve">
+    <value>Please enter date of birth.</value>
+  </data>
+  <data name="Driver Registration Email Required" xml:space="preserve">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="Driver Registration EmiratesID Required" xml:space="preserve">
+    <value>Please enter a valid emiratesid.</value>
+  </data>
+  <data name="Driver Registration English Name Required" xml:space="preserve">
+    <value>Please enter the english name.</value>
+  </data>
+  <data name="Driver Registration Gender Required" xml:space="preserve">
+    <value>Please select a gender.</value>
+  </data>
+  <data name="Driver Registration Mobile Invalid" xml:space="preserve">
+    <value>Mobile no is invalid. Please enter correct format</value>
+  </data>
+  <data name="Driver Registration Mobile Required" xml:space="preserve">
+    <value>Please enter a valid mobile number.</value>
+  </data>
+  <data name="Driver Registration Nationality Required" xml:space="preserve">
+    <value>Please select a nationality .</value>
+  </data>
+  <data name="Driver Registration Page Form Header" xml:space="preserve">
+    <value>Water Tankering User Registration</value>
+  </data>
+  <data name="Driver Registration Password Required" xml:space="preserve">
+    <value>Please enter a valid pasword</value>
+  </data>
+  <data name="Driver Registration Prefered Language Required" xml:space="preserve">
+    <value>Please select a preferred language.</value>
+  </data>
+  <data name="Driver Registration Security Answer Required" xml:space="preserve">
+    <value>Please enter a enter security Answer</value>
+  </data>
+  <data name="Driver Registration Security Question Required" xml:space="preserve">
+    <value>Please enter a select security question</value>
+  </data>
+  <data name="Driver Registration Username Required" xml:space="preserve">
+    <value>Please enter a valid username</value>
+  </data>
+  <data name="Driver Registration Verify OTP Invalid" xml:space="preserve">
+    <value>OTP is invalid. Please enter correct otp</value>
+  </data>
+  <data name="Driver Registration Verify OTP Required" xml:space="preserve">
+    <value>Please enter a valid OTP</value>
+  </data>
+  <data name="PasswordValidation" xml:space="preserve">
+    <value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&amp;])[A-Za-z\d@$!%*?&amp;]{8,}$</value>
+  </data>
+  <data name="Registration Completion Email Body" xml:space="preserve">
+    <value>&lt;div&gt;Dear Customer,​ ​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Thank you for registering for the training for Tanker Drivers.&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Below are your registration details.&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;table width="50%"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;EmiratesId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{EmiratesId}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Arabic Name&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Arabicname}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;English Name&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Englishname}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Username&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Username}&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Best Regards,​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;ADDC Team​&lt;br/&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="Registration Completion Email Subject" xml:space="preserve">
+    <value>Water tanker drivers training registration.</value>
+  </data>
+  <data name="Registration Email InValid" xml:space="preserve">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="Registration EmiratesID Available in CC&amp;B" xml:space="preserve">
+    <value>Available in CC&amp;B</value>
+  </data>
+  <data name="Registration EmiratesID InValid" xml:space="preserve">
+    <value>Please enter a valid emiratesid.</value>
+  </data>
+  <data name="Registration EmiratesID Not Available in CC&amp;B" xml:space="preserve">
+    <value>Emirates ID not registered in CC&amp;B</value>
+  </data>
+  <data name="Registration Mobile InValid" xml:space="preserve">
+    <value>Please enter a valid mobile number.</value>
+  </data>
+  <data name="Registration Page Address Label" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Registration Page Address Placeholder" xml:space="preserve">
+    <value>Please enter your address</value>
+  </data>
+  <data name="Registration Page Arabic Name Label" xml:space="preserve">
+    <value>Arabic Name</value>
+  </data>
+  <data name="Registration Page Arabic Name Placeholder" xml:space="preserve">
+    <value>Please enter your arabic name</value>
+  </data>
+  <data name="Registration Page CC&amp;B Connection Error" xml:space="preserve">
+    <value>It seems that something went wrong. Please try again later.</value>
+  </data>
+  <data name="Registration Page Confirm password Label" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Registration Page Confirm password message" xml:space="preserve">
+    <value>Password and Confirmation Password must match.</value>
+  </data>
+  <data name="Registration Page Confirm password Placeholder" xml:space="preserve">
+    <value>Please enter confirm password</value>
+  </data>
+  <data name="Registration Page DateOfBirth Label" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="Registration Page DateOfBirth Placeholder" xml:space="preserve">
+    <value>Please select your date of birth</value>
+  </data>
+  <data name="Registration Page Driver Already Registered" xml:space="preserve">
+    <value>Driver is already registered. Please use login page</value>
+  </data>
+  <data name="Registration Page Driver Name Label" xml:space="preserve">
+    <value>Driver Name (As per your Emirates ID)</value>
+  </data>
+  <data name="Registration Page Driver Name Placeholder" xml:space="preserve">
+    <value>Please enter your full name as per your Emirates ID</value>
+  </data>
+  <data name="Registration Page Email Label" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Registration Page Email Placeholder" xml:space="preserve">
+    <value>Please enter your email address</value>
+  </data>
+  <data name="Registration Page Emirates ID Label" xml:space="preserve">
+    <value>Emirates ID</value>
+  </data>
+  <data name="Registration Page Emirates ID Placeholder" xml:space="preserve">
+    <value>Please enter your Emirates ID</value>
+  </data>
+  <data name="Registration Page EmiratesID Available" xml:space="preserve">
+    <value>Emirates ID available in CC&amp;B</value>
+  </data>
+  <data name="Registration Page EmiratesID Not Available" xml:space="preserve">
+    <value>Emirates ID not registered in CC&amp;B</value>
+  </data>
+  <data name="Registration Page English Name Label" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="Registration Page English Name Placeholder" xml:space="preserve">
+    <value>Please enter your english name</value>
+  </data>
+  <data name="Registration Page Gender Female Label" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Registration Page Gender Label" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Registration Page Gender Male Label" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Registration Page Gender Placeholder" xml:space="preserve">
+    <value>Please select your gender</value>
+  </data>
+  <data name="Registration Page Mobile Label" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Registration Page Nationality Label" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="Registration Page Nationality Placeholder" xml:space="preserve">
+    <value>Please select your nationality</value>
+  </data>
+  <data name="Registration Page Next Button" xml:space="preserve">
+    <value>Next Step</value>
+  </data>
+  <data name="Registration Page OTP Success Message" xml:space="preserve">
+    <value>OTP has been generated and sent successfully</value>
+  </data>
+  <data name="Registration Page OTP Verified Success Message" xml:space="preserve">
+    <value>Your mobile number has been successfully verified. Please procceed ahead. </value>
+  </data>
+  <data name="Registration Page Password Label" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Registration Page Password message" xml:space="preserve">
+    <value>password must contain at least one uppercase letter, one number, one special character and be at least 8 characters long.</value>
+  </data>
+  <data name="Registration Page Password Placeholder" xml:space="preserve">
+    <value>Please enter password</value>
+  </data>
+  <data name="Registration Page Preferred Lang Arabic Label" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="Registration Page Preferred Lang English Label" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Registration Page Preferred Lang Label" xml:space="preserve">
+    <value>Preferred Language</value>
+  </data>
+  <data name="Registration Page Preferred Lang Placeholder" xml:space="preserve">
+    <value>Please select your preferred language</value>
+  </data>
+  <data name="Registration Page Register Button" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Registration Page Retrieve Emirates ID Button" xml:space="preserve">
+    <value>Retrieve Emirates ID</value>
+  </data>
+  <data name="Registration Page Security Answer Label" xml:space="preserve">
+    <value>Security Answer</value>
+  </data>
+  <data name="Registration Page Security Answer Placeholder" xml:space="preserve">
+    <value>Please enter your security answer</value>
+  </data>
+  <data name="Registration Page Send OTP Button" xml:space="preserve">
+    <value>Send OTP</value>
+  </data>
+  <data name="Registration Page Username Already Exist" xml:space="preserve">
+    <value>Username already exist.</value>
+  </data>
+  <data name="Registration Page Username Label" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Registration Page Username Placeholder" xml:space="preserve">
+    <value>Please enter your username</value>
+  </data>
+  <data name="Registration Page Verify OTP Button" xml:space="preserve">
+    <value>Verify OTP</value>
+  </data>
+  <data name="Registration Page Verify OTP Label" xml:space="preserve">
+    <value>Verify OTP</value>
+  </data>
+  <data name="Registration Page Verify OTP Placeholder" xml:space="preserve">
+    <value>Please enter OTP</value>
+  </data>
+  <data name="Registration Password requires message" xml:space="preserve">
+    <value>&lt;blockquote&gt;&lt;p&gt;A password requires:&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;MUST contain at least 8 characters&lt;/li&gt;
+&lt;li&gt;MUST contain at least one uppercase letter&lt;/li&gt;
+&lt;li&gt;MUST contain at least one lowercase letter&lt;/li&gt;
+&lt;li&gt;MUST contain at least one number&lt;/li&gt;
+&lt;li&gt;MUST contain at least one special character (!”#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~ )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We recommend your password does not include your birth date, name, or other obvious information&lt;/p&gt;&lt;/blockquote&gt;</value>
+  </data>
+  <data name="Registration Security Question Label" xml:space="preserve">
+    <value>Security Question</value>
+  </data>
+  <data name="Registration Security Question Placeholder" xml:space="preserve">
+    <value>Please select security question</value>
+  </data>
+  <data name="Registration User Registered Already" xml:space="preserve">
+    <value>The user has already registered, please log in</value>
+  </data>
+  <data name="Thank you Message Header" xml:space="preserve">
+    <value>Driver Registration is Successful -</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>TMS Training User Registrations</value>
+  </data>
+</root>

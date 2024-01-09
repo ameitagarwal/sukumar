@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<PaymentController> stringLocalizer;
+@inject IHtmlLocalizer<PaymentController> htmlLocalizer;
+@model Registration;
+@{
+	ViewBag.Title = @stringLocalizer["Title"];
+}
+
+<div class="row">
+	<div class="col-12">
+		<h1>@stringLocalizer["Payment Complete Page header"] @Model.RegistrationNo</h1>
+	</div>
+	<div class="col-12 mt-3">
+		@Html.Raw(@htmlLocalizer["Payment Complete Page success message"].Value)
+	</div>
+</div>

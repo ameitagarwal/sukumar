@@ -1,0 +1,265 @@
+﻿@inject IStringLocalizer<UserLoginController> stringLocalizer;
+@model UserLoginViewModel;
+@{
+    ViewBag.Title = stringLocalizer["Title"];
+}
+
+<div class="row">
+    <div class="col-12"></div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-9">
+        <div class="row">
+            <div class="col-12">
+                <h1>@stringLocalizer["Home Page Heading"]</h1>
+            </div>
+            <div class="col-12 mt-3">
+                <h6>@stringLocalizer["Home Page Description"]</h6>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3">
+        <div class="col-12 login-form mt-3">
+            <h2>@stringLocalizer["Home Page Login Heading"]</h2>
+           
+                <div class="mb-3">
+                    @stringLocalizer["Home Page Login Description"]
+                </div>
+                <div class="row" id="LoginEIDSection">
+                    <div class="mb-3">
+                        <input asp-for="EmiratesID" id="txtEmiratesID" type="text" class="form-control" placeholder="784-0000-0000000-0" maxlength="18" />
+                        <span id="EID_ER" class="text-danger small d-none" asp-validation-for="EmiratesID"></span>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="submit" onclick="login_with_EID()" class="btn col-10">@stringLocalizer["Login Page Continue EmiratesId Heading"]</button>
+                    </div>
+                    <span id="LoginEIDFailedER" class="text-danger small d-none">Invalid Password.</span>
+                </div>
+                <div class="row mb-3 d-none" id="LoginOTPSection">
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <div class="form-group has-validation">
+                            <label asp-for="VerifyOTP" class="asterisk mb-1">@stringLocalizer["Registration Page Verify OTP Label"]</label>
+                            <input id="txtOTP" asp-for="VerifyOTP" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Verify OTP Placeholder"]" maxlength="13">
+                            
+                            <span id="divOTPSent" class="text-success d-none">@stringLocalizer["Registration Page OTP Success Message"]</span>
+                            <span id="OTPErrorMessage" class="text-danger d-none"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-auto">
+                                <button id="btnSendOTP" class="btn" onclick="SendOTP()">@stringLocalizer["Registration Page Send OTP Button"]</button>
+                            </div>
+                            <div class="col-auto">
+                                <button id="btnvalidationnext" class="btn" onclick="validationnext()">@stringLocalizer["Registration Page Verify OTP Button"]</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6 text-center">
+                    OR
+                </div>
+                <div class="mb-3">
+                    <input id="txtUsername" asp-for="Username" type="text" class="form-control" palceholder="Username" autocomplete="off" />
+                    <span id="UnameER" class="text-danger small d-none" asp-validation-for="Username"></span>
+                </div>
+                <div class="mb-3">
+                    <input id="txtPassword" asp-for="Password" type="password" class="form-control" palceholder="Password" autocomplete="off" />
+                    <span id="PwdER" class="text-danger small d-none" asp-validation-for="Password"></span>
+                </div>
+                <div class="mb-3 text-center">
+                    <button onclick="login()" type="submit" class="btn col-10">@stringLocalizer["Login Page Continue Credentials Heading"]</button>
+
+                </div>
+                <span id="LoginFailedER" class="text-danger small d-none">Invalid Password.</span>
+           
+        </div>
+        <div class="col-12 login-form mt-3">
+            <h2>@stringLocalizer["Home Page Login User Registration Heading"]</h2>
+            <form class="p-3">
+                <div class="mb-3">
+                    @stringLocalizer["Home Page Registration Description"]
+                </div>
+                <div class="mb-3 text-center">
+                    <a asp-controller="RegisterUser" asp-action="index" class="btn col-10">@stringLocalizer["Home Page Login Registration Button"]</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    function login_with_EID() {
+        //alert("login with EID");
+        debugger;
+        $('.spinner').css('display', 'block');
+
+        var EmiratesID = $("#txtEmiratesID").val();
+
+        var errorArray = [];
+        var errorString = "";
+        if (EmiratesID == "" || EmiratesID == undefined) {
+            $('#EID_ER').text("Provide EmiratesID.");
+            $('#EID_ER').removeClass('d-none');
+            errorArray.push("EmiratesID");
+        }
+        else {
+            $('#EID_ER').addClass('d-none');
+        }
+
+        if (errorArray.length > 0) {
+            errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+        }
+
+        if (errorString != "") {
+            $('.spinner').css('display', 'none');
+            return false;
+
+        }
+        var lang = 'en';
+        $.ajax({
+            url: '/' + lang + '/UserLogin/EmiratesID_Login',
+            type: 'GET',
+            data: { EmiratesID: EmiratesID },
+            contentType: 'application/json',
+            success: function (response) {
+                debugger;
+                //alert(response.status);
+                if (response.status == 1) {
+                    $('#LoginEIDFailedER').removeClass('d-none');
+                    $('#LoginEIDFailedER').text(response.statusText);
+                }
+                else if (response.status == 0) {
+                    $('#LoginEIDSection').addClass('d-none');
+                    $('#LoginOTPSection').removeClass('d-none');
+                }
+            },
+            error: function (ex) {
+                alert(ex);
+            }
+        });
+
+    }
+
+    function login() {
+        $('.spinner').css('display', 'block');
+
+        var username = $("#txtUsername").val();
+        var password = $("#txtPassword").val();
+        var errorArray = [];
+        var errorString = "";
+        if (username == "" || username == undefined) {
+            $('#UnameER').removeClass('d-none');
+            errorArray.push("Username");
+        }
+        else {
+            $('#UnameER').addClass('d-none');
+        }
+        if (password == "" || password == undefined) {
+            errorArray.push(" Password");
+            $('#PwdER').removeClass('d-none');
+        }
+        else {
+            $('#PwdER').addClass('d-none');
+        }
+
+        if (errorArray.length > 0) {
+            errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+        }
+
+        if (errorString != "") {
+            $('.spinner').css('display', 'none');
+            return false;
+
+        }
+        var lang = 'en';
+        $.ajax({
+            url: '/' + lang + '/UserLogin/UserLogin',
+            type: 'GET',
+            data: { username: username, password: password },
+            contentType: 'application/json',
+            success: function (response) {
+                debugger;
+                //alert(response.status);
+                if (response.status == 1) {
+                    $('#LoginFailedER').removeClass('d-none');
+                    $('#LoginFailedER').text(response.statusText);
+                }
+                else if (response.status == 0) {
+                    window.open("Home/Index?id=1", "_self");
+                }
+            },
+            error: function (ex) {
+                alert(ex);
+            }
+        });
+
+    }
+
+    function validationnext() {
+        debugger;
+        $('#OTPErrorMessage').addClass('d-none');
+        $('#divOTPSent').addClass('d-none');
+
+        var otp = $("#txtOTP").val();
+        var EmiratesID = $("#txtEmiratesID").val();
+
+        if (otp == "" || otp == undefined) {
+            $('#OTPErrorMessage').removeClass('d-none');
+            $('#OTPErrorMessage').text('@Html.Raw(@stringLocalizer["Driver Registration Verify OTP Required"].Value.ToString())');
+            return false;
+        }
+
+        var lang = 'en';
+        //if (PreferredLang == 'Arabic')
+        //	lang = 'ar';
+        $.ajax({
+            url: '/' + lang + '/UserLogin/ValidateOTP',
+            type: 'GET',
+            data: { EmiratesID: EmiratesID },
+            contentType: 'application/json',
+            success: function (response) {
+                if (response == otp) {
+                    window.open("Home/Index?id=1", "_self");
+                }
+                else {
+                    $('#OTPErrorMessage').removeClass('d-none');
+                    $('#OTPErrorMessage').text('@Html.Raw(@stringLocalizer["Driver Registration Verify OTP Invalid"].Value.ToString())');
+                }
+            }
+        });
+
+        //$('#divUserCredentials').removeClass('d-none');
+    }
+
+    function SendOTP() {
+        debugger;
+        $('#OTPErrorMessage').addClass('d-none');
+
+        $("#btnSendOTP").attr("disabled", true);
+        setTimeout(function () {
+            $("#btnSendOTP").attr("disabled", false);
+        }, 60000);
+
+        var EmiratesID = $("#txtEmiratesID").val();
+        var Mobile = $("#txtMobileNumber").val();
+
+        var lang = 'en';
+        $.ajax({
+            url: '/' + lang + '/UserLogin/RegisterOTP',
+            type: 'GET',
+            data: { EmiratesID: EmiratesID },
+            contentType: 'application/json',
+            success: function (response) {
+                if (response == "Suceess") {
+                    $('#divOTPSent').removeClass('d-none');
+                    $('#btnvalidationnext').removeClass('d-none');
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+</script>

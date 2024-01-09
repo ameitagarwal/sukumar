@@ -1,0 +1,115 @@
+﻿@model TrainingsViewModel
+@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IConfiguration config;
+
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+<form asp-action="Edit" method="post" class="needs-validation" novalidate>
+	<div class="row">
+		<div class="col-sm-12 mb-3">
+			<input asp-for="Training.Id" type="hidden"  />
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.LocationId" class="asterisk mb-1">@stringLocalizer["Registration Page Locations Label"]</label>
+				<select asp-for="Training.LocationId" onchange="loadCenters(this)"
+						class="form-control"
+						asp-items="@(new SelectList(Model.Locations,"Id", "TitleEn"))">
+				</select>
+				 <span class="text-danger small" asp-validation-for="Training.LocationId"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.CenterId" class="asterisk mb-1">@stringLocalizer["Registration Page Centers Label"]</label>
+				<select class="form-select" id="ddlCenters" onchange="loadMapping(this)"
+					asp-for="Training.CenterId" asp-items="@(new SelectList(Model.Centers,"Id", "TitleEn"))">
+				</select>
+				<a id="MapsLink" style="display:none" href="" target="_blank">@stringLocalizer["Registration Page Maps Link"] <i class="bi bi-geo-alt"></i></a>
+				<span class="text-danger small" asp-validation-for="Training.CenterId"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.TotalSeats" class="mb-1">Total Seats</label>
+				<input asp-for="Training.TotalSeats" type="text" class="form-control" placeholder="Please enter a Total Seats">
+				<span class="text-danger small" asp-validation-for="TotalSeats"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.AvailableSeats" class="mb-1">Available Seats</label>
+				<input asp-for="Training.AvailableSeats" type="text" class="form-control" placeholder="Please enter a Available Seats">
+				<span class="text-danger small" asp-validation-for="Training.AvailableSeats"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.StartDateTime" class="asterisk mb-1">Start DateTime</label>
+				<div class="input-group">
+					<div id="dateofbirth"
+						 class="input-group date"
+						 data-date-format="dd-mm-yyyy">
+						<input class="form-control" asp-for="Training.StartDateTime" placeholder="Please enter a Start DateTime"
+							   type="text"  />
+						<div class="input-group-append">
+							<div class="input-group-text" style="border-top-left-radius:0px; border-bottom-left-radius:0px">
+								<i class="bi bi-calendar3"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<span class="text-danger small" asp-validation-for="Training.StartDateTime"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<div class="form-group has-validation">
+				<label asp-for="Training.EndDateTime" class="asterisk mb-1">End DateTime</label>
+				<div class="input-group">
+					<div id="dateofbirth"
+						 class="input-group date"
+						 data-date-format="dd-mm-yyyy">
+						<input class="form-control" asp-for="Training.EndDateTime" placeholder="Please enter a End DateTime"
+							   type="text"  />
+						<div class="input-group-append">
+							<div class="input-group-text" style="border-top-left-radius:0px; border-bottom-left-radius:0px">
+								<i class="bi bi-calendar3"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<span class="text-danger small" asp-validation-for="EndDateTime"></span>
+			</div>
+		</div>
+		<div class="col-sm-12 mb-3">
+			<button class="btn" type="submit">Save</button>
+		</div>
+	</div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+	function loadCenters(obj) {
+		var url = "@baseurl";
+		$.post("/en/Registration/GetCentersByLocation", { LocationId: obj.value }, function (data) {
+			$("#ddlCenters").empty();
+			$("#ddlCenters").append("<option>@stringLocalizer["Registration Page Centers Placeholder"]</option>")
+			$.each(data, function (index, row) {
+				var text = "@CultureInfo.CurrentCulture.Name" == "en" ? row.titleEn : "@CultureInfo.CurrentCulture.Name" == "ar" ? row.titleAr : row.titleUr;
+				$("#ddlCenters").append("<option value='" + row.id + "'>" + text + "</option>")
+			});
+		});
+	}
+	function loadMapping(obj) {
+		var url = "@baseurl";
+		$("#MapsLink").hide();
+		$.post("/en/Registration/GetCenterById", { Id: obj.value }, function (data) {
+			if (data != null) {
+				$("#MapsLink").show();
+				$("#MapsLink").attr("href", data.url);
+			}
+		});
+	}
+</script>

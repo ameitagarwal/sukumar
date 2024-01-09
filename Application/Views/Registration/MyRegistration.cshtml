@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MyRegistration>
+@using TMS_Traning_Management.Services
+
+@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IConfiguration config;
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+
+<div class = "row">
+    <div class="col-12 mb-3 right-container">
+        <h2>
+            @stringLocalizer["My Registration Page Registered Trainings Label"]
+        </h2>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @stringLocalizer["My Registration Page Registration Date Label"] 
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Training Center Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Map Link Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Location Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Amount Paid Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Amount Paid Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Training End Date Label"]
+                    </th>
+                    <th>
+                        @stringLocalizer["My Registration Page Download PDF Label"]
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <label asp-for="@item.RegistrationDate">@item.RegistrationDate</label>
+                        </td>
+                        <td>
+                            <label asp-for="@item.Center">@item.Center</label>
+                        </td>
+                        <td>
+                            <label asp-for="@item.Location">@item.Location</label>
+                        </td>
+                        <td>
+                            <a id="MapsLink" href="" target="_blank"> @item.MapLink <i class="bi bi-geo-alt"></i></a>
+                        </td>
+                        <td>
+                            809
+                        </td>
+                        <td>
+                            <label asp-for="@item.StartDateTime">@item.StartDateTime</label>
+                        </td>
+                        <td>
+                            <label asp-for="@item.EndDateTime">@item.EndDateTime</label>
+                        </td>
+                        <td>
+                            <div>
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Download as PDF file!">
+                                    <span class="bi bi-download fs-3 text-success"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

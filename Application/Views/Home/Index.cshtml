@@ -1,0 +1,61 @@
+﻿@inject IStringLocalizer<HomeController> stringLocalizer;
+@model HomePagePaymentViewModel;
+@{
+    ViewBag.Title = stringLocalizer["Title"];
+}
+
+<div class="row">
+    <div class="col-12"></div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-9">
+        <div class="row">
+            <div class="col-12">
+                <h1>@stringLocalizer["Home Page Heading"]</h1>
+            </div>
+            <div class="col-12 mt-3">
+                <h6>@stringLocalizer["Home Page Description"]</h6>
+            </div>
+            <div class="col-12 mt-5">
+                <h3>@stringLocalizer["Home Page Training Locations Header"]</h3>
+            </div>
+            @if (Model != null)
+            {
+                @foreach (var center in Model.Centers)
+                {
+                    <div class="col-sm-12 mt-3">
+                        @center.Location.TitleEn : <b>@center.TitleEn</b> – <a target="_blank" href="@center.Url">Click Here</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3">
+        <div class="col-12 login-form mt-3">
+            <h2>@stringLocalizer["Home Page Registration Heading"]</h2>
+            <form class="p-3">
+                <div class="mb-3">
+                    @stringLocalizer["Home Page Registration Description"]
+                </div>
+                <div class="mb-3">
+                    <a asp-controller="Registration" asp-action="index" class="btn">@stringLocalizer["Home Page Registration Button"]</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 login-form mt-3">
+            <h2>@stringLocalizer["Home Page Payment Heading"]</h2>
+            <form class="p-3" method="post" asp-action="Index">
+                <div class="mb-3">
+                    @stringLocalizer["Home Page Payment Description"]
+                </div>
+                <div class="mb-3">
+                    <input asp-for="RegistrationNo" type="text" class="form-control" palceholder="Registration Number" maxlength="8" />
+                    <span class="text-danger small" asp-validation-for="RegistrationNo"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn">@stringLocalizer["Home Page Payment Button"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

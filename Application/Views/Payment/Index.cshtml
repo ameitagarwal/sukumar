@@ -1,0 +1,274 @@
+﻿@inject IStringLocalizer<PaymentController> stringLocalizer;
+@model PaymentViewModel;
+@inject IConfiguration config;
+@{
+	ViewBag.Title = @stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+	var TrainingId = Model.TrainingId;
+}
+@if (TempData["PaymentError"] != null)
+{
+	<div class="row">
+		<div class="col-12">
+			<div class="alert alert-danger" role="alert">
+				@stringLocalizer["Training Registration Details Payment Error"]
+			</div>
+		</div>
+	</div>
+}
+@if (Model.PaymentStatus == "I")
+{
+	<div class="row">
+		<div class="col-12">
+			<div class="alert alert-danger" role="alert">
+				@stringLocalizer["Payment Already Initiated Message"]
+			</div>
+		</div>
+	</div>
+}
+else
+{
+	@if (Model.Training.AvailableSeats == 0 && Model.PaymentStatus != "C")
+	{
+		<div class="row">
+			<div class="col-12">
+				<div class="alert alert-danger" role="alert">
+					@stringLocalizer["Seats Not Available Message"]
+				</div>
+			</div>
+		</div>
+	}
+}
+
+@if (Model != null)
+{
+	<form asp-action="RegisterPayment" method="post" asp-route-Id="@Model.Id" asp-route-TrainingId="@Model.TrainingId">
+		<div class="col-12 mb-3">
+			<h2>@stringLocalizer["Training Registration Details"] - @Model.RegistrationNo</h2>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Entity"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				@Model.Entity
+			</div>
+		</div>
+		@if (!string.IsNullOrEmpty(Model.EntityName))
+		{
+			<div class="row mt-3">
+				<div class="col-sm-12 col-md-2">
+					<b>@stringLocalizer["Training Registration Details Entity Name"]</b>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					@Model.EntityName
+				</div>
+			</div>
+		}
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details DriverName"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<label>@Model.DriverName</label>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Emirates ID"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<label>@Model.EmiratesID</label>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Mobile"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<label>@Model.Mobile</label>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Email"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<label>@Model.Email</label>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Location"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<select id="ddlLocation" class="form-select" asp-for="LocationId" onchange="loadCenters(this)">
+					@foreach (var loc in Model.Locations)
+					{
+						<option value="@loc.Id">
+							@if (CultureInfo.CurrentCulture.Name == "en")
+							{
+								@loc.TitleEn
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ar")
+							{
+								@loc.TitleAr
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ur")
+							{
+								@loc.TitleUr
+							}
+						</option>
+					}
+				</select>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Center"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<select class="form-select" id="ddlCenters" asp-for="CenterId" onchange="loadTrainings(this)">
+					<option value="" selected>@stringLocalizer["Training Page Centers Placeholder"]</option>
+					@foreach (var center in Model.Centers)
+					{
+						<option value="@center.Id">
+							@if (CultureInfo.CurrentCulture.Name == "en")
+							{
+								@center.TitleEn
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ar")
+							{
+								@center.TitleAr
+							}
+							@if (CultureInfo.CurrentCulture.Name == "ur")
+							{
+								@center.TitleUr
+							}
+						</option>
+					}
+				</select>
+				<span class="text-danger small" asp-validation-for="CenterId"></span>
+				<a id="MapsLink" class="link-underline small" target="_blank" href="@Model.Training.Center.Url">@stringLocalizer["Training Registration Details Maps Link"] <i class="bi bi-geo-alt"></i></a>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Training"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<select class="form-select" asp-for="TrainingId" id="ddlTrainings" onchange="loadTrainingDetails(this)">
+				</select>
+				<span class="text-primary small">@stringLocalizer["Payment Page Available Training Note"]</span><br />
+				<span class="text-danger small" asp-validation-for="TrainingId"></span>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Available Seats"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<label id="availableSeats">@Model.Training.AvailableSeats</label>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-sm-12 col-md-2">
+				<b>@stringLocalizer["Training Registration Details Amount due"]</b>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<b>AED @config["Amount"]</b>
+			</div>
+		</div>
+		@if (Model.PaymentStatus != "C")
+		{
+			<div class="col-12 mt-3">
+				<button type="submit" class="btn">@stringLocalizer["Payment Page Make Payment Button"]</button>
+			</div>
+		}
+		else
+		{
+			<div class="row mt-3">
+				<div class="col-sm-12 col-md-2">
+					<b>@stringLocalizer["Training Registration Details Payment Status"]</b>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>Completed</label>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-sm-12 col-md-2">
+					<b>@stringLocalizer["Training Registration Details Payment Transaction ID"]</b>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label>@Model.TransactionID</label>
+				</div>
+			</div>
+		}
+	</form>
+}
+<script>
+	$(document).ready(function () {
+		var obj = { value: "@Model.Training.CenterId" };
+		loadTrainings(obj);
+	});
+	function showEntityName(obj) {
+		var entityNameDiv = document.getElementById("entityNameDiv");
+		if (obj.value != "Individual" && obj.value != "") {
+			entityNameDiv.classList.remove("d-none");
+		}
+		else {
+			entityNameDiv.classList.add("d-none");
+			$("#EntityName").val("");
+		}
+	}
+	function loadCenters(obj) {
+		$.post("/en/Registration/GetCentersByLocation", { LocationId: obj.value }, function (data) {
+			$("#ddlCenters").empty();
+			$("#ddlCenters").append("<option>@stringLocalizer["Training Page Centers Placeholder"]</option>")
+			$("#ddlTrainings").empty();
+			$("#ddlTrainings").append("<option>@stringLocalizer["Training Page Available Training Placeholder"]</option>")
+			$.each(data, function (index, row) {
+				var text = "@CultureInfo.CurrentCulture.Name" == "en" ? row.titleEn : "@CultureInfo.CurrentCulture.Name" == "ar" ? row.titleAr : row.titleUr;
+				$("#ddlCenters").append("<option value='" + row.id + "'>" + text + "</option>")
+			});
+		});
+	}
+	function loadTrainings(obj) {
+		$("#MapsLink").hide();
+		$.post("/en/Registration/GetCenterById", { Id: obj.value }, function (data) {
+			if (data != null) {
+				$("#MapsLink").show();
+				$("#MapsLink").attr("href", data.url);
+			}
+		});
+		var LocationId = $("#ddlLocation").val();
+		$.post("/en/Payment/GetTrainingsByLocation", { LocationId: LocationId, CenterId: obj.value }, function (data) {
+			PopulateDropDown("#ddlTrainings", data);
+		});
+	}
+	function PopulateDropDown(dropDownId, list) {
+		$(dropDownId).empty();
+		var weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+		var weeks = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Sat"]
+		$(dropDownId).append("<option>@stringLocalizer["Payment Page Available Training Placeholder"]</option>")
+		$.each(list, function (index, row) {
+			var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+			var startdate = new Date(row.startDateTime).toLocaleDateString("@CultureInfo.CurrentCulture.Name", options);
+			var enddate = new Date(row.endDateTime).toLocaleDateString("@CultureInfo.CurrentCulture.Name", options);
+			var text = "From " + startdate + " To " + enddate;
+			if ("@Model.TrainingId" == row.id) {
+				$(dropDownId).append("<option value='" + row.id + "' selected>" + text + "</option>")
+			}
+			else {
+				$(dropDownId).append("<option value='" + row.id + "'>" + text + "</option>")
+			}
+		});
+	}
+	function loadTrainingDetails(obj){
+		$.post("/en/Payment/GetTrainingDetailsById", { Id: obj.value }, function (data) {
+			if (data != null) {
+				document.getElementById("availableSeats").innerText = data.availableSeats;
+			}
+		});
+	}
+</script>

@@ -1,0 +1,76 @@
+﻿@model ShowPaging
+@using TMS_Traning_Management.Services
+
+@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IConfiguration config;
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+
+<div class = "row">
+    <div class="col-12 mb-3 right-container">
+        <h2>Registered Trainings</h2>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        Training Center
+                    </th>
+                    <th>
+                        Map Link
+                    </th>
+                    <th>
+                        Amount Paid
+                    </th>
+                    <th>
+                        Start Date
+                    </th>
+                    <th>
+                        End Date
+                    </th>
+                    <th>Download PDF</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DisplayResult)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Center)
+                        </td>
+                        <td>
+
+                            <a id="MapsLink" href="" target="_blank"> @Html.DisplayFor(modelItem => item.MapLink) <i class="bi bi-geo-alt"></i></a>
+                        </td>
+                        <td>
+                            809
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDateTime)
+                        </td>
+                        <td>
+                            <div>
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Download as PDF file!">
+                                    <span class="bi bi-download fs-3 text-success"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

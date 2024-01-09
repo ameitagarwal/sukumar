@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Payment Already Initiated Message" xml:space="preserve">
+    <value>آپ نے پہلے ہی اس رجسٹریشن نمبر کے لیے ادائیگی شروع کر دی ہے، براہ کرم ادائیگی کی تصدیق کے لیے کچھ وقت انتظار کریں۔</value>
+  </data>
+  <data name="Payment Complete Page header" xml:space="preserve">
+    <value>رجسٹریشن کے لیے ادائیگی کامیاب ہے -</value>
+  </data>
+  <data name="Payment Complete Page success message" xml:space="preserve">
+    <value>&lt;div&gt;مطلوبہ ادائیگی مکمل کرنے کے لیے آپ کا شکریہ۔&lt;/div&gt;&lt;div class="mt-2"&gt;ٹریننگ میں بروقت شرکت کو یقینی بنائیں۔&lt;/div&gt;&lt;div class="mt-2"&gt;اگر آپ کو کسی مدد کی ضرورت ہو تو آپ ٹینکرنگ مینجمنٹ سینٹر (024165112) سے رابطہ کر سکتے ہیں۔&lt;/div&gt;</value>
+  </data>
+  <data name="Payment Completion Email Body" xml:space="preserve">
+    <value>&lt;div&gt;Dear Customer,​ ​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Thank you for completing the required payment. Please make sure to attend the training on time. If you need any support, you can contact Tankering Management Center (024165112). 
+ ​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;&lt;table width="50%"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Registration ID&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{RegNo}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;City&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{City}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Location&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Location}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Google Maps Link&lt;/b&gt;&lt;/td&gt;{Link}&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Start Date&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{StartDate}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;End Date&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{EndDate}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Amount Paid&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{Amount}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Payment Status&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Completed&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Transaction Number&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{TransactionID}&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;Best Regards,​&lt;/div&gt;
+&lt;div&gt;
+   &lt;br/&gt;
+&lt;/div&gt;
+&lt;div&gt;ADDC Team​&lt;br/&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="Payment Completion Email Subject" xml:space="preserve">
+    <value>رجسٹریشن {RegNo} کے لیے ادائیگی کامیاب</value>
+  </data>
+  <data name="Payment Completion SMS" xml:space="preserve">
+    <value>کی ادائیگی کے لئے آپ کا شکریہ {Amount} 
+آپ کی ٹرانزیکشن ID: {TransactionID} 
+تربیتی کورس کے لیے آپ کی رجسٹریشن کی تصدیق ہو گئی ہے۔
+مقام: {Location} 
+تربیت کی تاریخ: {TrainingDate} 
+وقت: 8:30 AM to 2:30 PM 
+ٹریننگ میں بروقت شرکت کو یقینی بنائیں۔
+اگر آپ کو کسی مدد کی ضرورت ہو تو آپ ٹینکرنگ مینجمنٹ سینٹر (024165112) سے رابطہ کر سکتے ہیں۔</value>
+  </data>
+  <data name="Payment Page Available Training Note" xml:space="preserve">
+    <value>نوٹ: تمام ٹریننگز صبح 8:30 بجے سے دوپہر 2:30 بجے تک انگریزی میں ہوں گی۔</value>
+  </data>
+  <data name="Payment Page Available Training Placeholder" xml:space="preserve">
+    <value>--- ٹریننگ کا انتخاب کریں۔ ---</value>
+  </data>
+  <data name="Payment Page Make Payment Button" xml:space="preserve">
+    <value>ادائیگی کرنا</value>
+  </data>
+  <data name="Seats Not Available Message" xml:space="preserve">
+    <value>منتخب ٹریننگ کے لیے کوئی سیٹیں دستیاب نہیں ہیں، براہ کرم مختلف ٹریننگ منتخب کریں اور دوبارہ کوشش کریں۔</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>ادائیگی</value>
+  </data>
+  <data name="Training Page Centers Placeholder" xml:space="preserve">
+    <value>--- ٹریننگ سینٹر منتخب کریں۔ ---</value>
+  </data>
+  <data name="Training Registration Details" xml:space="preserve">
+    <value>ٹریننگ رجسٹریشن کی تفصیلات</value>
+  </data>
+  <data name="Training Registration Details Amount due" xml:space="preserve">
+    <value>ادائیگی کی رقم</value>
+  </data>
+  <data name="Training Registration Details Available Seats" xml:space="preserve">
+    <value>دستیاب نشستیں۔</value>
+  </data>
+  <data name="Training Registration Details Center" xml:space="preserve">
+    <value>تربیتی مرکز</value>
+  </data>
+  <data name="Training Registration Details DriverName" xml:space="preserve">
+    <value>ڈرائیور کا نام</value>
+  </data>
+  <data name="Training Registration Details Email" xml:space="preserve">
+    <value>ای میل</value>
+  </data>
+  <data name="Training Registration Details Emirates ID" xml:space="preserve">
+    <value>ایمریٹس آئی ڈی</value>
+  </data>
+  <data name="Training Registration Details End Date" xml:space="preserve">
+    <value>آخری تاریخ</value>
+  </data>
+  <data name="Training Registration Details Entity" xml:space="preserve">
+    <value>ہستی کی قسم</value>
+  </data>
+  <data name="Training Registration Details Entity Name" xml:space="preserve">
+    <value>ہستی کا نام</value>
+  </data>
+  <data name="Training Registration Details Location" xml:space="preserve">
+    <value>مقام</value>
+  </data>
+  <data name="Training Registration Details Maps Link" xml:space="preserve">
+    <value>گوگل میپس میں لوکیشن دیکھیں</value>
+  </data>
+  <data name="Training Registration Details Mobile" xml:space="preserve">
+    <value>موبائل</value>
+  </data>
+  <data name="Training Registration Details Payment Error" xml:space="preserve">
+    <value>آپ کا لین دین ناکام رہا۔ براہ کرم اپنی ادائیگی مکمل کرنے کے لیے دوبارہ کوشش کریں۔</value>
+  </data>
+  <data name="Training Registration Details Payment Status" xml:space="preserve">
+    <value>ادائیگی کی حیثیت</value>
+  </data>
+  <data name="Training Registration Details Payment Transaction ID" xml:space="preserve">
+    <value>ٹرانزیکشن نمبر</value>
+  </data>
+  <data name="Training Registration Details Start Date" xml:space="preserve">
+    <value>شروع کرنے کی تاریخ</value>
+  </data>
+  <data name="Training Registration Details Training" xml:space="preserve">
+    <value>تربیت</value>
+  </data>
+</root>

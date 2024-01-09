@@ -1,0 +1,21 @@
+﻿@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IHtmlLocalizer<RegistrationController> htmlLocalizer
+@model Registration;
+@{
+    ViewBag.Title = stringLocalizer["Title"];
+}
+
+<div class="row">
+    <div class="col-12">
+        <h1>@stringLocalizer["Thank you Message Header"]@Model.RegistrationNo</h1>
+    </div>
+    <div class="col-12">
+        @Html.Raw(@htmlLocalizer["Thank you Message"].Value.Replace("{RegNo}", @Model.RegistrationNo))
+    </div>
+    <div class="col-md-12 mb-3">
+        <small><i class="text-danger">@stringLocalizer["Rigistreation Completed Note"]</i></small>
+    </div>
+    <div class="col-12 mt-3">
+        <a asp-controller="Payment" asp-action="Index" asp-route-id="@Model.EncryptedId" class="btn btn-primary">@stringLocalizer["Registration Completion Page Make Payment button"]</a>
+    </div>
+</div>

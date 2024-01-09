@@ -1,0 +1,14 @@
+.bi-calendar{
+    left: 20px;
+    right:auto;
+}
+@media screen and (max-width: 767px) {
+    .dropdown-toggle::after{
+    right: auto;
+    left:5px;
+    }
+    .main-navigation .navbar-nav .nav-link.active, .navbar-nav li a:hover {
+        padding-left: 0px;
+        padding-right: 5px;
+    }
+}

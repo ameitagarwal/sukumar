@@ -1,0 +1,15 @@
+﻿@inject IStringLocalizer<RegisterUserController> stringLocalizer
+@inject IHtmlLocalizer<RegisterUserController> htmlLocalizer
+@model RegisterUserController;
+@{
+    ViewBag.Title = stringLocalizer["Title"];
+}
+
+<div class="row">
+    <div class="col-12">
+        <h1>Registration is Successful - AD000063</h1>
+    </div>
+    <div class="col-12">
+        <div>Thank you for registering to the training. </div><div class="mt-1">Your registration has been successful and your regstration number is AD000063.</div>
+    </div>
+</div>

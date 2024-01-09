@@ -1,0 +1,76 @@
+﻿@model TrainingsViewModel
+@inject IStringLocalizer<RegistrationController> stringLocalizer
+@inject IConfiguration config;
+
+@{
+    ViewBag.Title = stringLocalizer["Title"];
+    var baseurl = ViewData["BaseUrl"];
+}
+
+<div class="col-12 mb-3 result-page">
+    <h2>Registrations By Training</h2>
+    <div class="row">
+        <div class="col-12">
+            <h4>Training</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-fixed">
+                    <tbody>
+                        <tr>
+                            <td width="30%">Location</td>
+                            <td>@Model.Training.Location.TitleEn</td>
+                        </tr>
+                        <tr>
+                            <td width="30%">Center</td>
+                            <td>@Model.Training.Center.TitleEn</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4>Registrations List</h4>
+            <form asp-action="Registration" method="post" class="needs-validation" novalidate>
+            <a href="new-shifting-scheme-request.html"><button type="submit" class="btn float-end mb-3">Update All</button></a>
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Registration No</th>
+                            <th>Entity Name</th>
+                            <th>Driver Name</th>
+                            <th>Mobile</th>
+                            <th>EmiratesID</th>
+                            <th>Attended</th>                            
+                            <th>Passed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Registration)
+                        {
+                            <tr>
+                                <td>@item.RegistrationNo</td>
+                                <td>@item.EntityName</td>
+                                <td>@item.DriverName</td>
+                                <td>@item.Mobile</td>
+                                <td>@item.EmiratesID</td>
+                                <td>
+                                    <input type="checkbox" class="form-check-input" />
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="form-check-input" />
+                                </td>
+                                <td>
+                                    <a id="Registration" class="btn-info" asp-controller="Trainings"
+                                           asp-route-id="@item.EncryptedId" asp-action="Registration">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

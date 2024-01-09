@@ -1,0 +1,1117 @@
+﻿@model RegisterUserViewModel
+@inject IStringLocalizer<RegisterUserController> stringLocalizer
+@inject IConfiguration config;
+@{
+	ViewBag.Title = stringLocalizer["Title"];
+	var baseurl = ViewData["BaseUrl"];
+}
+@if (TempData["Duplicate Registration Message"] != null)
+{
+	<div class="row">
+		<div class="col-12">
+			<div class="alert alert-danger" role="alert">
+				@Html.Raw(TempData["Duplicate Registration Message"])
+			</div>
+		</div>
+	</div>
+}
+
+<style>
+	.center-div {
+		width: 300px;
+		height: 300px;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -150px;
+		margin-top: -150px;
+	}
+
+	.spinner {
+		position: fixed;
+		z-index: 999;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		background-color: Black;
+		filter: alpha(opacity=60);
+		opacity: 0.6;
+		-moz-opacity: 0.8;
+	}
+
+	.loader {
+		margin: auto;
+		border: 16px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 16px solid #15a0ec;
+		border-bottom: 16px solid #15a0ec;
+		width: 120px;
+		height: 120px;
+		-webkit-animation: spin 2s linear infinite;
+		animation: spin 2s linear infinite;
+	}
+
+	.inner-div {
+		background-color: white;
+		border-radius: 15px;
+		margin: auto;
+		padding: 2%;
+		width: 150px;
+	}
+
+	@@-webkit-keyframes spin {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+
+	@@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<div class="spinner" style="display:none">
+	<div class="center-div">
+		<div class="inner-div">
+			<div class="loader"></div>
+		</div>
+	</div>
+</div>
+<div class="row mb-3">
+	<div class="col-12">
+		<h1>@stringLocalizer["Driver Registration Page Form Header"]</h1>
+	</div>
+</div>
+<div class="row">
+		<div class="row" id="divUserInformation">
+			<div class="col-sm-12 col-md-4 mb-3">
+				<div class="form-group has-validation">
+				<label asp-for="EmiratesID" class="asterisk mb-1" oninput="onclickhandler(this)">@stringLocalizer["Registration Page Emirates ID Label"]</label>
+					<input id="txtEmiratesID" asp-for="EmiratesID" type="text" class="form-control" placeholder="784-0000-0000000-0" maxlength="18" >
+					<span id="EIDErrorResults" class="text-danger small d-none" asp-validation-for="EmiratesID">@stringLocalizer["Driver Registration EmiratesID Required"]</span>
+					<span id="SuccessResults" class="text-success d-none">@stringLocalizer["Registration Page EmiratesID Available"]<i class="bi-check-lg bi--xl"></i></span>
+					<span id="ErrorMessage" class="text-danger d-none"></span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-2 mb-9"><br />
+			<span class="btn" onclick="fetchemiratesid()">@stringLocalizer["Registration Page Retrieve Emirates ID Button"]</span>
+			</div>
+			<div class="row d-none" id="divsectionone">
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="EnglishName" class="asterisk mb-1">@stringLocalizer["Registration Page English Name Label"]</label>
+					<input asp-for="EnglishName" id="txtEnglishName" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page English Name Placeholder"]" maxlength="150">
+					<span id="ENErrorResults" class="text-danger small d-none" asp-validation-for="EnglishName">@stringLocalizer["Driver Registration English Name Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="ArabicName" class="asterisk mb-1">@stringLocalizer["Registration Page Arabic Name Label"]</label>
+					<input asp-for="ArabicName" id="txtArabicName" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Arabic Name Placeholder"]" maxlength="150">
+					<span id="ARErrorResults" class="text-danger small d-none rtl" asp-validation-for="ArabicName">@stringLocalizer["Driver Registration Arabic Name Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-2">
+				<div class="form-group has-validation">
+					<label asp-for="Mobile" class="asterisk mb-1">@stringLocalizer["Registration Page Mobile Label"]</label>
+					<input id="txtMobileNumber" asp-for="Mobile" type="text" class="form-control" placeholder="05x-xxxxxxxxx" maxlength="13">
+					<span id="MobErrorResults" class="text-danger small d-none" asp-validation-for="Mobile">@stringLocalizer["Driver Registration Mobile Required"]</span>
+					<span id="MobInvErrorResults" class="text-danger small d-none" asp-validation-for="Mobile">@stringLocalizer["Driver Registration Mobile Invalid"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="Email" class="asterisk mb-1">@stringLocalizer["Registration Page Email Label"]</label>
+					<input asp-for="Email" type="text" id="txtEmail" class="form-control" placeholder="@stringLocalizer["Registration Page Email Placeholder"]" maxlength="150">
+					<span id="MailErrorResults" class="text-danger small d-none" asp-validation-for="Email">@stringLocalizer["Driver Registration Email Required"]</span>
+				</div>
+			</div>
+			@* <div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="Nationality" class="asterisk mb-1">@stringLocalizer["Registration Page Nationality Label"]</label>
+					<select class="form-select" asp-for="Nationality" >
+						<option value="" selected>@stringLocalizer["Registration Page Nationality Placeholder"]</option>
+						@foreach (var entity in Model.Countrys)
+						{
+							<option value="@entity.Key">
+								@if (CultureInfo.CurrentCulture.Name == "en")
+								{
+									@entity.TitleEn
+								}
+								@if (CultureInfo.CurrentCulture.Name == "ar")
+								{
+									@entity.TitleAr
+								}
+								@if (CultureInfo.CurrentCulture.Name == "ur")
+								{
+									@entity.TitleUr
+								}
+							</option>
+						}
+					</select>
+					<span id="Nat_ErrorResults" class="text-danger small d-none" asp-validation-for="Nationality">@stringLocalizer["Driver Registration Nationality Required"]</span>
+				</div>
+			</div> *@
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="DOB" class="asterisk mb-1">@stringLocalizer["Registration Page DateOfBirth Label"]</label>
+					<input asp-for="DOB" type="text" id="txtdob" class="form-control datetimepicker" placeholder="@stringLocalizer["Registration Page DateOfBirth Placeholder"]" maxlength="150">
+					<span id="DOBErrorResults" class="text-danger small d-none" asp-validation-for="DOB">@stringLocalizer["Driver Registration DOB Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="Gender" class="asterisk mb-1">@stringLocalizer["Registration Page Gender Label"]</label>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input"
+									   type="radio"
+									   name="Gender"
+									   asp-for="Gender"
+									   id="Male"
+									   checked="checked"
+									   value="Male" />
+								<label class="form-check-label"
+									   for="Male">@stringLocalizer["Registration Page Gender Male Label"]</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input"
+									   type="radio"
+									   name="Gender"
+									   asp-for="Gender"
+									   id="Female"
+									   value="Female" />
+								<label class="form-check-label"
+									   for="imapctNo">@stringLocalizer["Registration Page Gender Female Label"]</label>
+							</div>
+						</div>
+					</div>
+					<span asp-validation-for="Gender" class="text-danger"></span>
+					<span id="GenderErrorResults" class="text-danger small d-none" asp-validation-for="Gender">@stringLocalizer["Driver Registration Gender Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="PreferredLang" class="asterisk mb-1">@stringLocalizer["Registration Page Preferred Lang Label"]</label>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input"
+									   type="radio"
+									   name="PreferredLang"
+									   id="Arabic"
+									   value="Arabic" />
+								<label class="form-check-label"
+									   for="imapctYes">@stringLocalizer["Registration Page Preferred Lang Arabic Label"]</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input"
+									   type="radio"
+									   name="PreferredLang"
+									   id="English"
+									   checked="checked"
+									   value="English" />
+								<label class="form-check-label"
+									   for="imapctNo">@stringLocalizer["Registration Page Preferred Lang English Label"]</label>
+							</div>
+						</div>
+					</div>
+					<span id="LangErrorResults" class="text-danger small d-none" asp-validation-for="PreferredLang">@stringLocalizer["Driver Registration Prefered Language Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group">
+					<label asp-for="Address" class="mb-1">@stringLocalizer["Registration Page Address Label"]</label>
+					<textarea asp-for="Address" id="txtaddress" class="form-control" placeholder="@stringLocalizer["Registration Page Address Placeholder"]"
+							  style="height:100px" required="" maxlength="10000"></textarea>
+				</div>
+			</div>
+			</div>
+			<div class="col-sm-12 col-md-12 mb-3 d-none" id="divNextbutton">
+			<button class="btn" onclick="btnSecondsection()">@stringLocalizer["Registration Page Next Button"]</button>
+			</div>
+			<div class="col-sm-12 col-md-12 mb-3 d-none" id="divVerifiedOTP">
+			<button class="btn" onclick="btnThirdsection()">@stringLocalizer["Registration Page Next Button"]</button>
+			</div>
+		</div>
+		<div class="row d-none" id="divValidateMobile">
+			<div class="col-sm-12 col-md-4 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="VerifyOTP" class="asterisk mb-1">@stringLocalizer["Registration Page Verify OTP Label"]</label>
+					<input id="txtOTP" asp-for="VerifyOTP" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Verify OTP Placeholder"]" maxlength="13">
+					<span class="text-danger small" asp-validation-for="VerifyOTP"></span>
+					<span id="divOTPSent" class="text-success d-none">@stringLocalizer["Registration Page OTP Success Message"]</span>
+					@* <span id="OTPSent" class="text-danger d-none">@stringLocalizer["Driver Registration Verify OTP Required"]</span>
+					<span id="OTPIncorrect" class="text-danger d-none">@stringLocalizer["Driver Registration Verify OTP Invalid"]</span> *@
+					<span id="OTPErrorMessage" class="text-danger d-none"></span>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row g-3 justify-content-start">
+					<div class="col-auto">
+						<button id="btnSendOTP" class="btn" onclick="SendOTP()">@stringLocalizer["Registration Page Send OTP Button"]</button>
+					</div>
+					<div class="col-auto">
+						<button id="btnvalidationnext" class="btn d-none" onclick="validationnext()">@stringLocalizer["Registration Page Verify OTP Button"]</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row d-none" id="divUserCredentials">
+			<div class="col-sm-12 col-md-12 mb-3">
+			<span class="text-success">@stringLocalizer["Registration Page OTP Verified Success Message"]</span>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="UserName" class="asterisk mb-1">@stringLocalizer["Registration Page Username Label"]</label>
+					<input asp-for="UserName" type="text" id="txtUsername" class="form-control" placeholder="@stringLocalizer["Registration Page Username Placeholder"]" maxlength="150">
+					<span id="UErrorResults" class="text-danger small d-none" asp-validation-for="UserName">@stringLocalizer["Driver Registration Username Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+				<label asp-for="Password" class="asterisk mb-1">@stringLocalizer["Registration Page Password Label"]</label>
+					<input asp-for="Password" type="password" id="txtPassword" class="form-control" placeholder="@stringLocalizer["Registration Page Password Placeholder"]" maxlength="150">
+					<span id="PErrorResults" class="text-danger small d-none" asp-validation-for="Password">@stringLocalizer["Driver Registration Password Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+				<label asp-for="ConfirmPassword" class="asterisk mb-1">@stringLocalizer["Registration Page Confirm password Label"]</label>
+				<input asp-for="ConfirmPassword" id="txtConfPwd" type="password" class="form-control" placeholder="@stringLocalizer["Registration Page Confirm password Placeholder"]" maxlength="150">
+				<span id="CPErrorResults" class="text-danger small d-none" asp-validation-for="ConfirmPassword">@stringLocalizer["Driver Registration Confirm Password Required"]</span>
+				<span id="CPMatchErrorResults" class="text-danger small d-none" asp-validation-for="ConfirmPassword">@stringLocalizer["Driver Registration Confirm Password Invalid"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+					<label asp-for="SecurityQuestion" class="asterisk mb-1">@stringLocalizer["Registration Security Question Label"]</label>
+					<select class="form-select" asp-for="SecurityQuestion" id="txtSecQues">
+					<option value="" selected>@stringLocalizer["Registration Security Question Placeholder"]</option>
+							@foreach (var entity in Model.SecurityQuestions)
+							{
+								<option value="@entity.Id">
+									@if (CultureInfo.CurrentCulture.Name == "en")
+									{
+										@entity.TitleEn
+									}
+									@if (CultureInfo.CurrentCulture.Name == "ar")
+									{
+										@entity.TitleAr
+									}
+									@if (CultureInfo.CurrentCulture.Name == "ur")
+									{
+										@entity.TitleUr
+									}
+								</option>
+							}
+					</select>
+				<span id ="SQErrorResults" class="text-danger small d-none" asp-validation-for="SecurityQuestion">@stringLocalizer["Registration Page Security Answer Placeholder"]</span>
+					</div>
+			</div>
+			<div class="col-sm-12 col-md-6 mb-3">
+				<div class="form-group has-validation">
+				<label asp-for="SecurityAnswer" class="asterisk mb-1">@stringLocalizer["Registration Page Security Answer Label"]</label>
+					<input asp-for="SecurityAnswer" id="txtSecAns" type="text" class="form-control" placeholder="@stringLocalizer["Registration Page Security Answer Placeholder"]" maxlength="150">
+					<span id="SAErrorResults" class="text-danger small d-none" asp-validation-for="SecurityAnswer">@stringLocalizer["Driver Registration Security Answer Required"]</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-12 mb-3">
+				<button class="btn" onclick="register();" >@stringLocalizer["Registration Page Register Button"]</button>
+			</div>
+		<div class="col-sm-12 col-md-12 mb-3">
+			<span class="text-danger small" id="access-code-error"></span>
+			<label class="text-danger small d-none" id="lblPassowrdErrorMsg">@stringLocalizer["Registration Password requires message"]</label>
+			</div>
+		</div>
+	</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+<script>
+	var isEidexist = false;
+
+	$(document).ready(function () {
+		$("#txtMobileNumber").mask("999-999999999");
+		$("#txtEmiratesID").mask("999-9999-9999999-9");
+		$("#divsectionone").addClass('d-none');
+		$("#ErrorMessage").text("");
+		$("#SuccessResults").text("");
+		$("#access-code-error").text("");
+		$('#txtdob').datepicker({
+			format: 'mm/dd/yyyy', //Define your desired date format
+			autoclose: true
+		});
+
+		$("#txtUsername").keypress(function (e) {
+			var key = e.keyCode || e.which;
+			$("#UErrorResults").text("");
+			//Regular Expression
+			var reg_exp = /^[A-Za-z0-9 ]+$/;
+			//Validate Text Field value against the Regex.
+			var is_valid = reg_exp.test(String.fromCharCode(key));
+			if (!is_valid) {
+				$("#UErrorResults").removeClass('d-none');
+				$("#UErrorResults").text("No special characters Please!");
+			}
+			else {
+				$("#UErrorResults").addClass('d-none');
+			}
+			return is_valid;
+		});
+	})
+
+	function btnSecondsection() {
+		debugger;
+		var EmiratesID = $("#txtEmiratesID").val();
+		var EnglishName = $("#txtEnglishName").val();
+		var ArabicName = $("#txtArabicName").val();
+		var Mobile = $("#txtMobileNumber").val();
+		var DOB = $("#txtdob").val();
+		//var Gender = document.querySelector('input[name="Gender"]:checked').value;
+		//var PreferredLang = document.querySelector('input[name="PreferredLang"]:checked').value;
+		var Email = $("#txtEmail").val();
+		var Nationality = $("#Nationality").val();
+		var Address = $("#txtaddress").val();
+
+
+		var errorArray = [];
+		var errorString = "";
+
+		if (EnglishName == "" || EnglishName == undefined) {
+			$('#ENErrorResults').removeClass('d-none');
+			errorArray.push("EnglishName");
+		}
+		else {
+			$('#ENErrorResults').addClass('d-none');
+		}
+		if (ArabicName == "" || ArabicName == undefined) {
+			$('#ARErrorResults').removeClass('d-none');
+			errorArray.push("ArabicName");
+		}
+		else {
+			$('#ARErrorResults').addClass('d-none');
+		}
+		if (Mobile == "" || Mobile == undefined) {
+			$('#MobErrorResults').removeClass('d-none');
+			errorArray.push(" Mobile");
+		}
+		else {
+			debugger;
+			$('#MobErrorResults').addClass('d-none');
+		}
+		if (!validMobile(Mobile)) {
+			$('#MobErrorResults').text("Provide valid Mobile Number");
+			$('#MobErrorResults').removeClass('d-none');
+			//return false;
+			errorArray.push(" Mobile");
+		}
+		else {
+			$('#MobErrorResults').addClass('d-none');
+		}
+
+		if (DOB == "" || DOB == undefined) {
+			$('#DOBErrorResults').removeClass('d-none');
+			errorArray.push(" DOB");
+		}
+		else {
+			$('#DOBErrorResults').addClass('d-none');
+		}
+
+		if (validDOB(DOB)) {
+			$('#DOBErrorResults').text("Provide select valid DOB");
+			$('#DOBErrorResults').removeClass('d-none');
+			//return false;
+			errorArray.push(" DOB");
+		}
+		else {
+			$('#DOBErrorResults').addClass('d-none');
+		}
+
+		var Gender = document.querySelector('input[name="Gender"]:checked');
+		if (Gender == "" || Gender == undefined) {
+			$('#GenderErrorResults').removeClass('d-none');
+			errorArray.push(" Gender");
+		}
+		else {
+			$('#GenderErrorResults').addClass('d-none');
+			Gender = document.querySelector('input[name="Gender"]:checked').value;
+		}
+
+		var PreferredLang = document.querySelector('input[name="PreferredLang"]:checked');
+		if (PreferredLang == "" || PreferredLang == undefined) {
+			$('#LangErrorResults').removeClass('d-none');
+			errorArray.push(" PrefLang");
+		}
+		else {
+			$('#LangErrorResults').addClass('d-none');
+			PreferredLang = document.querySelector('input[name="PreferredLang"]:checked').value;
+		}
+		if (Email == "" || Email == undefined) {
+			$('#MailErrorResults').removeClass('d-none');
+			errorArray.push("Email");
+		}
+		else {
+			$('#MailErrorResults').addClass('d-none');
+		}
+		if (!validEmail(Email)) {
+			$('#MailErrorResults').text("Provide Email in Correct Format");
+			$('#MailErrorResults').removeClass('d-none');
+			//return false;
+			errorArray.push("Email");
+		}
+		else {
+			$('#MailErrorResults').addClass('d-none');
+		}
+
+		if (errorArray.length > 0) {
+			errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+		}
+		if (errorString != "") {
+			return false;
+		}
+
+		var lang = 'en';
+		if (PreferredLang == 'Arabic')
+			lang = 'ar';
+		$.ajax({
+			url: '/' + lang + '/RegisterUser/RegisterOTP',
+			type: 'GET',
+			data: { EmiratesID: EmiratesID, Mobile: Mobile, ArabicName: ArabicName },
+			contentType: 'application/json',
+			success: function (response) {
+
+				if (response == "Suceess") {
+					$('#divUserInformation').addClass('d-none');
+					$('#divValidateMobile').removeClass('d-none');
+					$('#divUserCredentials').addClass('d-none');
+
+					$('#btnvalidationnext').removeClass('d-none');
+
+					//Set disable 60 seconds send otp button
+					$("#btnSendOTP").attr("disabled", true);
+					setTimeout(function () {
+						$("#btnSendOTP").attr("disabled", false);
+					}, 60000);
+				 }
+				 else {
+					$('#ARErrorResults').removeClass('d-none');
+					$('#ARErrorResults').text(response);
+				 }
+			}
+		});
+	}
+
+	function btnThirdsection() {
+		var DOB = $("#txtdob").val();
+		var Email = $("#txtEmail").val();
+		
+		var errorArray = [];
+		var errorString = "";
+		if (Email == "" || Email == undefined) {
+			$('#MailErrorResults').removeClass('d-none');
+			errorArray.push("Email");
+		}
+		else {
+			$('#MailErrorResults').addClass('d-none');
+		}
+		if (!validEmail(Email)) {
+			$('#MailErrorResults').text("Provide Email in Correct Format");
+			$('#MailErrorResults').removeClass('d-none');
+			errorArray.push("Email");
+		}
+		else {
+			$('#MailErrorResults').addClass('d-none');
+		}
+		if (DOB == "" || DOB == undefined) {
+			$('#DOBErrorResults').removeClass('d-none');
+			errorArray.push(" DOB");
+		}
+		else {
+			$('#DOBErrorResults').addClass('d-none');
+		}
+
+		if (validDOB(DOB)) {
+			$('#DOBErrorResults').text("Provide select valid DOB");
+			$('#DOBErrorResults').removeClass('d-none');
+			errorArray.push(" DOB");
+		}
+		else {
+			$('#DOBErrorResults').addClass('d-none');
+		}
+		if (errorArray.length > 0) {
+			errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+		}
+		if (errorString != "") {
+			return false;
+		}
+
+		$('#divUserInformation').addClass('d-none');
+		$('#divValidateMobile').addClass('d-none');
+		$('#divUserCredentials').removeClass('d-none');
+	}
+
+	function validationnext() {
+		debugger;
+		$('#OTPErrorMessage').addClass('d-none');
+		$('#divOTPSent').addClass('d-none');
+
+		var otp = $("#txtOTP").val();
+		var EmiratesID = $("#txtEmiratesID").val();
+
+		if (otp == "" || otp == undefined) {
+			$('#OTPErrorMessage').removeClass('d-none');
+			$('#OTPErrorMessage').text('@Html.Raw(@stringLocalizer["Driver Registration Verify OTP Required"].Value.ToString())');
+			return false;
+		}
+
+		var lang = 'en';
+		//if (PreferredLang == 'Arabic')
+		//	lang = 'ar';
+		$.ajax({
+			url: '/' + lang + '/RegisterUser/ValidateOTP',
+			type: 'GET',
+			data: { EmiratesID: EmiratesID },
+			contentType: 'application/json',
+			success: function (response) {
+				if (response == otp) {
+					if (isEidexist == true) {
+						$('#divUserCredentials').addClass('d-none');
+						$('#divsectionone').removeClass('d-none');
+						$('#divValidateMobile').addClass('d-none');
+						//New next button to redirect to user credentials
+						$('#divVerifiedOTP').removeClass('d-none');
+					}
+					else{
+						$('#divUserCredentials').removeClass('d-none');
+						$('#divUserInformation').addClass('d-none');
+						$('#divValidateMobile').addClass('d-none');
+						$('#divVerifiedOTP').addClass('d-none');
+					}
+					$('#txtOTP').text("");
+				}
+				else {
+					//$('#OTPIncorrect').removeClass('d-none');
+					$('#OTPErrorMessage').removeClass('d-none');
+					$('#OTPErrorMessage').text('@Html.Raw(@stringLocalizer["Driver Registration Verify OTP Invalid"].Value.ToString())');
+				}
+			}
+		});
+		
+		//$('#divUserCredentials').removeClass('d-none');
+	}
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const EIDInput = document.getElementById('txtEmiratesID');
+		const EIDError = document.getElementById('EIDErrorResults');
+
+		EIDInput.addEventListener('input', function () {
+			if (EIDInput.value.trim() !== '') {
+				EIDError.classList.add('d-none');
+			} else {
+				EIDError.classList.remove('d-none');
+			}
+		});
+
+		const englishNameInput = document.getElementById('txtEnglishName');
+		const englishNameError = document.getElementById('ENErrorResults');
+
+		englishNameInput.addEventListener('input', function () {
+			if (englishNameInput.value.trim() !== '') {
+				englishNameError.classList.add('d-none');
+			} else {
+				englishNameError.classList.remove('d-none');
+			}
+		});
+
+		const arabicNameInput = document.getElementById('txtArabicName');
+		const arabicNameError = document.getElementById('ARErrorResults');
+
+		arabicNameInput.addEventListener('input', function () {
+			if (arabicNameInput.value.trim() !== '') {
+				arabicNameError.classList.add('d-none');
+			} else {
+				arabicNameError.classList.remove('d-none');
+			}
+		});
+
+		const MobInput = document.getElementById('txtMobileNumber');
+		const MobError = document.getElementById('MobErrorResults');
+
+		MobInput.addEventListener('input', function () {
+			if (MobInput.value.trim() !== '') {
+				MobError.classList.add('d-none');
+			} else {
+				MobError.classList.remove('d-none');
+			}
+		});
+
+		const datePicker = document.getElementById('txtdob');
+		const dobError = document.getElementById('DOBErrorResults');
+
+		datePicker.onchange = function () {
+			if (datePicker.value.trim() !== '') {
+				dobError.classList.add('d-none');
+			} else {
+				dobError.classList.remove('d-none');
+			}
+			// Additional actions based on the date change can be added here
+		};
+
+		const emailInput = document.getElementById('txtEmail');
+		const emailError = document.getElementById('MailErrorResults');
+
+		emailInput.addEventListener('input', function () {
+			if (emailInput.value.trim() !== '') {
+				emailError.classList.add('d-none');
+			} else {
+				emailError.classList.remove('d-none');
+			}
+		});
+
+		//const NationInput = document.getElementById('Nationality');
+		//const NationError = document.getElementById('Nat_ErrorResults');
+
+		// NationInput.addEventListener('input', function () {
+		// 	if (NationInput.value.trim() !== '') {
+		// 		NationError.classList.add('d-none');
+		// 	} else {
+		// 		NationError.classList.remove('d-none');
+		// 	}
+		// });
+
+		const otpInput = document.getElementById('txtOTP');
+		//const OTPSent_error = document.getElementById('OTPSent');
+		const OTP_error = document.getElementById('OTPErrorMessage');
+
+		otpInput.addEventListener('input', function () {
+			if (otpInput.value.trim() !== '') {
+				OTP_error.classList.add('d-none');
+			} else {
+				//OTPSent_error.classList.remove('d-none');
+				OTP_error.classList.remove('d-none');
+				$('#OTPErrorMessage').text('@Html.Raw(@stringLocalizer["Driver Registration Verify OTP Required"].Value.ToString())');
+			}
+		});
+
+		const UInput = document.getElementById('txtUsername');
+		const Uerror = document.getElementById('UErrorResults');
+
+		UInput.addEventListener('input', function () {
+			if (UInput.value.trim() !== '') {
+				Uerror.classList.add('d-none');
+			} else {
+				Uerror.classList.remove('d-none');
+			}
+		});
+
+		const PInput = document.getElementById('txtPassword');
+		const Perror = document.getElementById('PErrorResults');
+
+		PInput.addEventListener('input', function () {
+			if (PInput.value.trim() !== '') {
+				Perror.classList.add('d-none');
+			} else {
+				Perror.classList.remove('d-none');
+			}
+		});
+
+		const CPInput = document.getElementById('txtConfPwd');
+		const CPerror = document.getElementById('CPErrorResults');
+
+		CPInput.addEventListener('input', function () {
+			if (CPInput.value.trim() !== '') {
+				CPerror.classList.add('d-none');
+			} else {
+				CPerror.classList.remove('d-none');
+			}
+		});
+
+		const sqInput = document.getElementById('txtSecQues');
+		const sqerror = document.getElementById('SQErrorResults');
+
+		sqInput.addEventListener('input', function () {
+			if (sqInput.value.trim() !== '') {
+				sqerror.classList.add('d-none');
+			} else {
+				sqerror.classList.remove('d-none');
+			}
+		});
+
+		const SAInput = document.getElementById('txtSecAns');
+		const SAerror = document.getElementById('SAErrorResults');
+
+		SAInput.addEventListener('input', function () {
+			if (SAInput.value.trim() !== '') {
+				SAerror.classList.add('d-none');
+			} else {
+				SAerror.classList.remove('d-none');
+			}
+		});
+	});
+	
+	function register(){
+		debugger;
+		$("#lblPassowrdErrorMsg").addClass('d-none');
+		$('.spinner').css('display', 'block');
+
+		var username = $("#txtUsername").val();
+		var password = $("#txtPassword").val();
+		var confpwd = $("#txtConfPwd").val();
+		var secQues = $("#txtSecQues").val();
+		var secAns = $("#txtSecAns").val();
+
+		var errorArray = [];
+		var errorString = "";
+		if (username == "" || username == undefined) {
+			$('#UErrorResults').removeClass('d-none');
+			errorArray.push("Username");
+		}
+		else {
+			$('#UErrorResults').addClass('d-none');
+		}
+		if (password == "" || password == undefined) {
+			errorArray.push(" Password");
+			$('#PErrorResults').removeClass('d-none');
+		}
+		else {
+			$('#PErrorResults').addClass('d-none');
+		}
+		if (confpwd == "" || confpwd == undefined) {
+			errorArray.push(" Confirm Password");
+			$('#CPErrorResults').removeClass('d-none');
+		}
+		else {
+			$('#CPErrorResults').addClass('d-none');
+		}
+
+		if (password != confpwd) {
+			errorArray.push(" Confirm Password");
+			$('#CPErrorResults').removeClass('d-none');
+		}
+		else {
+			$('#CPErrorResults').addClass('d-none');
+		}
+
+		if (secQues == "" || secQues == undefined) {
+			errorArray.push("Security Question");
+			$('#SQErrorResults').removeClass('d-none');
+		}
+		else {
+			$('#SQErrorResults').addClass('d-none');
+		}
+		if (secAns == "" || secAns == undefined) {
+			errorArray.push("Security Answer");
+			$('#SAErrorResults').removeClass('d-none');
+		}
+		else {
+			$('#SAErrorResults').addClass('d-none');
+		}
+
+		//var passvalid = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+		let regex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.#$!%*?&^])[A-Za-z\d.#$!%*?&]{8,15}$/;
+
+		if (!regex.test(password)) {
+			errorArray.push(" Password ");
+			//$("#access-code-error").text("'" + @stringLocalizer["Registration Password requires message"] + "'");
+			$("#lblPassowrdErrorMsg").removeClass('d-none');
+			var htmlmsg = $("#lblPassowrdErrorMsg").text();
+			$("#lblPassowrdErrorMsg").html(htmlmsg);
+
+			$("#txtPassword").val("");
+			$("#txtConfPwd").val("");
+			$("#txtPassword").focus();
+		}
+
+		if (errorArray.length > 0) {
+			errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+		}
+
+		if (errorString != "") {
+			$('.spinner').css('display', 'none');
+			return false;
+
+		}
+
+		
+
+			var registerdata = {
+			EmiratesID: $("#txtEmiratesID").val(),
+			ArabicName: $("#txtArabicName").val(),
+			EnglishName: $("#txtEnglishName").val(),
+			Mobile: $("#txtMobileNumber").val(),
+			DOB: $("#txtdob").val(),
+			Gender: document.querySelector('input[name="Gender"]:checked').value,
+			PreferredLang: document.querySelector('input[name="PreferredLang"]:checked').value,
+			Email: $("#txtEmail").val(),
+			Nationality: $("#Nationality").val(),
+			Address: $("#txtaddress").val(),
+			UserName: username,
+			Password:password,
+			SecurityQues: secQues,
+			SecurityAns: secAns
+		};
+		
+		var lang = 'en';
+            $.ajax({
+                type: 'POST',
+			url: '/' + lang + '/RegisterUser/RegisterUser',
+				data: { registerdata: registerdata, isEidexist: isEidexist }, // Sending the role name in the request body
+                success: function (data, status) {
+					//debugger;
+					//window.redirect("complete?id=1")
+					if (data.status == 0) {
+						$("#access-code-error").text(data.statusText);
+						//Stop spinner
+						$('.spinner').css('display', 'none');
+					}
+					else if (data.status == 1) {
+						window.open("RegisterUser/Complete?id=1", "_self");
+					}
+					else if (data.status == 2) {
+						$("#access-code-error").text('@Html.Raw(@stringLocalizer["Registration Page CC&B Connection Error"].Value.ToString())');
+						//Stop spinner
+						$('.spinner').css('display', 'none');
+					}
+                },
+                error: function (ex) {
+					//debugger;
+					alert(ex.statusText);
+                }
+            });
+	}
+	
+	function fetchemiratesid() {
+		$("#ErrorMessage").text("");
+		$("#SuccessResults").text("");
+		$('#EIDErrorResults').addClass('d-none');
+		$('#SuccessResults').addClass('d-none');
+		$('#ErrorMessage').addClass('d-none');
+		$('#divNextbutton').addClass('d-none');
+		$('#divVerifiedOTP').addClass('d-none');
+		$('#divValidateMobile').addClass('d-none');
+		$("#access-code-error").text("");
+
+		$('#txtEnglishName').removeAttr('disabled', true);
+		$('#txtArabicName').removeAttr('disabled', true);
+		$('#txtMobileNumber').removeAttr('disabled', true);
+		$('#txtdob').removeAttr('disabled', true);
+		$('#txtEmail').removeAttr('disabled', true);
+		$('#txtaddress').removeAttr('disabled', true);
+
+		$('.spinner').css('display', 'block');
+
+		var EmiratesID = $("#txtEmiratesID").val();
+
+		var errorArray = [];
+		var errorString = "";
+		if (EmiratesID == "" || EmiratesID == undefined) {
+			$('#EIDErrorResults').removeClass('d-none');
+			$("#EIDErrorResults").text("Please enter a valid emiratesid.");
+			errorArray.push("EmiratesID");
+			$('.spinner').css('display', 'none');
+			return false;
+		}
+		else {
+			$('#EIDErrorResults').addClass('d-none');
+		}
+
+		var eidvalid = "^784-[0-9]{4}-[0-9]{7}-[0-9]{1}$";
+		if (!EmiratesID.match(eidvalid)) {
+			errorArray.push("EmiratesID");
+			$('#EIDErrorResults').removeClass('d-none');
+			$("#EIDErrorResults").text("EmiratesID is invalid. Please enter correct emiratesid");
+			//$('.spinner').css('display', 'none');
+			//return false;
+		}
+
+		if (errorArray.length > 0) {
+			errorString = "Provide " + errorArray.join(", ") + ". It should not be empty.";
+		}
+
+		if (errorString != "") {
+			$('.spinner').css('display', 'none');
+			return false;
+
+		}
+		
+		var lang = 'en';
+		
+		$.ajax({
+			url: '/' + lang + '/RegisterUser/GetEmiratesIdDetails',
+			type: 'GET',
+			data: { EmiratesID: EmiratesID },
+			contentType: 'application/json',
+			success: function (response) {
+				var _res = response.status;
+				
+				if (_res == 2) {
+					$('#ErrorMessage').removeClass('d-none');
+					$("#divsectionone").addClass('d-none');
+					$('#divNextbutton').addClass('d-none');
+					$('#ErrorMessage').text(response.statusText);
+					$('.spinner').css('display', 'none');
+				}
+				else if (_res == null) {
+					var _res = response.personDetails;
+
+					//if EmiratesID is available set true
+					isEidexist = true;
+
+					//Set Emirates details in user information
+					$('#txtEnglishName').val(_res.englishName);
+					$('#txtArabicName').val(_res.arabicName);
+					$("#txtMobileNumber").val(_res.mobileNumber);
+					$("#dob").val(_res.dateOfBirth);
+					$("#txtEmail").val(_res.emailID);
+					$("#Nationality").val(_res.nationality);
+					$("#txtaddress").val(_res.address);
+
+					//Stop spinner
+					$('.spinner').css('display', 'none');
+
+					//Display below controls
+					$('#SuccessResults').removeClass('d-none');
+					$('#divValidateMobile').removeClass('d-none');
+					$('#btnvalidationnext').removeClass('d-none');
+					$('#divOTPSent').removeClass('d-none');
+					$("#btnSendOTP").attr("disabled", true);
+					setTimeout(function () {
+						$("#btnSendOTP").attr("disabled", false);
+					}, 60000);
+
+
+					//Hide below controls
+					$('#ErrorMessage').addClass('d-none');
+					$("#divsectionone").addClass('d-none');
+					$('#divVerifiedOTP').addClass('d-none');
+
+					//Disable the controls if its not empty
+					$('#txtEnglishName').attr('disabled', true);
+					$('#txtArabicName').attr('disabled', true);
+					$('#txtaddress').attr('disabled', true);
+
+					if (_res.mobileNumber != "" && _res.mobileNumber != null) {
+						$('#txtMobileNumber').attr('disabled', true);
+					}
+					if (_res.emailID != "" && _res.emailID != null) {
+						$('#txtEmail').attr('disabled', true);
+					}
+					if (_res.dateofbirth != "" && _res.dateofbirth != null) {
+						$('#txtdob').attr('disabled', true);
+					}
+				}
+				else if (_res == 0) {
+					$('#ErrorMessage').removeClass('d-none');
+					$("#divsectionone").addClass('d-none');
+					$('#divNextbutton').addClass('d-none');
+					$('#ErrorMessage').text(response.statusText);
+					$('.spinner').css('display', 'none');
+				}
+				else {
+					//Display below controls
+					$('#ErrorMessage').removeClass('d-none');
+					$('#divNextbutton').removeClass('d-none');
+					$("#divsectionone").removeClass('d-none');
+
+					//Hide below controls
+					$('#SuccessResults').addClass('d-none');
+
+					//Stop spinner control
+					$('.spinner').css('display', 'none');
+					$('#divValidateMobile').addClass('d-none');
+
+					//Controls clear
+					$('#txtArabicName').val("");
+					$('#txtEnglishName').val("");
+					$("#txtMobileNumber").val("");
+					$("#dob").val("");
+					$("#txtEmail").val("");
+					$("#Nationality").val("");
+					$("#txtaddress").val("");
+					$("#txtSecAns").val("");
+
+					$("#txtOTP").val("");
+					$("#txtUsername").val("");
+					$("#txtPassword").val("");
+					$("#txtaddress").val("");
+					$("#txtConfPwd").val("");
+
+					//Set Error Message
+					$('#ErrorMessage').text(response.statusText);
+				}
+			},
+			error: function (response) {
+				alert(response);
+				$('#ErrorMessage').removeClass('d-none');
+				$('#SuccessResults').addClass('d-none');
+				$('.spinner').css('display', 'none');
+			}
+		});
+	}
+
+	function SendOTP(){
+		debugger;
+		$('#OTPErrorMessage').addClass('d-none');
+		
+		$("#btnSendOTP").attr("disabled", true);
+		setTimeout(function () {
+			$("#btnSendOTP").attr("disabled", false);
+		}, 60000);
+
+		var EmiratesID = $("#txtEmiratesID").val();
+		var Mobile = $("#txtMobileNumber").val();
+		
+		var lang = 'en';
+		$.ajax({
+			url: '/' + lang + '/RegisterUser/RegisterOTP',
+			type: 'GET',
+			data: { EmiratesID: EmiratesID },
+			contentType: 'application/json',
+			success: function (response) {
+				if (response == "Suceess") { 
+					$('#divOTPSent').removeClass('d-none');
+					$('#btnvalidationnext').removeClass('d-none');
+				}
+			},
+			error: function (response) {
+				alert(response);
+			}
+		});
+	}
+
+	function validEmail(email) {
+		var re = /^[a-zA-Z0-9\.\_]+\@@{1}[a-zA-Z0-9]+\.\w{2,4}$/;
+		return re.test(email);
+	}
+	function validMobile(mobile) {
+		//var re = /^(?:\971|00971|)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/;
+		var re = /^05(?:0|2|3|4|6|7|9)-\d{7}$/;
+		return re.test(mobile);
+	}
+	function validDOB(dateofbirth) {
+		var isDOB = false;
+		var today = new Date();
+		var dob = new Date(dateofbirth);
+		var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+		if (age < 18) {
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+</script>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Error Occured";
+}
+
+<div class="row bg-success border-1 border-top border-success mb-3">
+</div>
+<div class="row mt-5">
+    <div class="col">
+        <h3>An error occured while processing your request. The support team is notified and we are working on the fix.</h3>
+        <h5>Please contact us on contact@DelightFarmer.com</h5>
+    </div>
+</div>
+@if (ViewBag.ErrorTitle == null)
+{
+    <div class="row">
+        <div class="col-12">
+            <h1>Exception Details</h1>
+            <div class="alert alert-danger">
+                <h5>Exception Path</h5>
+                <br />
+                <p>@ViewBag.ExceptionPath</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <h5>Exception Message</h5>
+                <br />
+                <p>@ViewBag.ExceptionMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <h5>Exception Stack trace</h5>
+                <br />
+                <p>@ViewBag.Stacktrace</p>
+            </div>
+        </div>
+    </div>
+}
+else{
+    <div class="row">
+        <div class="col-12">
+            <h1>Error Details</h1>
+            <div class="alert alert-danger">
+                <h5>Error Title</h5>
+                <br />
+                <p>@ViewBag.ErrorTitle</p>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <h5>Error Message</h5>
+                <br />
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+}
